@@ -5,7 +5,7 @@ import {
   FaTimes,
   FaHeart,
   FaStar,
-  FaInfoCircle,
+  // FaInfoCircle,
 } from "react-icons/fa";
 import profile1 from "../assets/profile1.jpeg";
 import profile2 from "../assets/profile2.jpeg";

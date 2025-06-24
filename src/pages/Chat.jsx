@@ -23,7 +23,7 @@ const dummyMatch = {
 };
 
 export default function Chat() {
-  const { matchId } = useParams();
+  // const { matchId } = useParams();
   const fileInputRef = useRef(null);
   const [messages, setMessages] = useState([
     { fromMe: false, text: "Hi!" },

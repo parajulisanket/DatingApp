@@ -42,32 +42,32 @@ export default function Footer() {
           <div>
             <h3 className="font-bold text-lg mb-3">Community</h3>
             <ul className="space-y-2 text-gray-600">
-              <li><a href="#">Guidelines</a></li>
-              <li><a href="#">Success Stories</a></li>
-              <li><a href="#">Plenty of Interests</a></li>
-              <li><a href="#">Plenty of Cities</a></li>
-              <li><a href="#">The Blog</a></li>
+              <li><a href="/guidelines">Guidelines</a></li>
+              <li><a href="/success">Success Stories</a></li>
+              <li><a href="/plenty">Plenty of Interests</a></li>
+              <li><a href="/city">Plenty of Cities</a></li>
+              <li><a href="/blog">The Blog</a></li>
             </ul>
           </div>
           {/* Contact */}
           <div>
             <h3 className="font-bold text-lg mb-3">Contact</h3>
             <ul className="space-y-2 text-gray-600">
-              <li><a href="#">Support</a></li>
-              <li><a href="#">Security</a></li>
-              <li><a href="#">Safety Tips</a></li>
-              <li><a href="#">Impressum</a></li>
+              <li><a href="/support">Support</a></li>
+              <li><a href="/security">Security</a></li>
+              <li><a href="/safety">Safety Tips</a></li>
+              <li><a href="/impresssum">Impressum</a></li>
             </ul>
           </div>
           {/* Legal */}
           <div>
             <h3 className="font-bold text-lg mb-3">Legal & Privacy</h3>
             <ul className="space-y-2 text-gray-600">
-              <li><a href="#">Terms of Service</a></li>
-              <li><a href="#">Privacy Policy</a></li>
-              <li><a href="#">Consumer Health Data Policy</a></li>
-              <li><a href="#">Cookie Policy</a></li>
-              <li><a href="#">Intellectual Property</a></li>
+              <li><a href="/services">Terms of Service</a></li>
+              <li><a href="/privacy">Privacy Policy</a></li>
+              <li><a href="/data">Consumer Health Data Policy</a></li>
+              <li><a href="/policy">Cookie Policy</a></li>
+              <li><a href="/property">Intellectual Property</a></li>
             </ul>
           </div>
         </div>
