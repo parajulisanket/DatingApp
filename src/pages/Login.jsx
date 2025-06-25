@@ -25,7 +25,7 @@ export default function Login() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-black">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-r from-pink-100 to-purple-100 relative overflow-hidden">
       <div className="w-full max-w-xs p-6 bg-white/90 rounded-2xl shadow-lg">
         <h2 className="text-2xl font-bold text-center mb-6 text-black">Log in</h2>
         <form className="flex flex-col gap-4" onSubmit={handleSubmit}>

@@ -9,7 +9,8 @@ import {
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import Chat from "./pages/Chat";
+import ChatApp from "./pages/ChatApp";        
+       
 import Matches from "./pages/Matches";
 import Profile from "./pages/Profile";
 import EditProfile from "./pages/EditProfile";
@@ -65,7 +66,7 @@ function AppLayout() {
           path="/chat"
           element={
             <ProtectedRoute>
-              <Chat />
+              <ChatApp />      {/* <-- Use ChatApp instead of Chat */}
             </ProtectedRoute>
           }
         />
