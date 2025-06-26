@@ -147,10 +147,7 @@ export default function CreateProfile() {
             <div className="flex flex-col items-center w-full mb-6">
               <div className="relative w-28 h-28">
                 <img
-                  src={
-                    photoPreview ||
-                    ""
-                  }
+                  src={photoPreview || ""}
                   alt="Profile"
                   className="rounded-full w-28 h-28 object-cover border-4 border-[#ffd6e0]"
                 />
@@ -372,7 +369,7 @@ export default function CreateProfile() {
                     <img
                       src={galleryPreview[i]}
                       className="object-cover w-full h-full"
-                      // alt="Photo"
+                      alt={`Gallery photo ${i + 1}`}
                     />
                   ) : (
                     <FiCamera className="text-[#EA4156] text-3xl" />
