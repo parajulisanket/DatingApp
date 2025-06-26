@@ -1,114 +1,166 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useRef, useState } from "react";
 import Sidebar from "../components/Sidebar/Sidebar";
-import profile from "../assets/profile.jpeg";
+import { FiCamera } from "react-icons/fi";
+
+// Utility to get profile from localStorage
+function getProfile() {
+  try {
+    return JSON.parse(localStorage.getItem("profile")) || {};
+  } catch {
+    return {};
+  }
+}
 
 export default function Profile() {
-  const user = {
-    name: "Sanket",
-    age: 20,
-    bio: "Loves hiking and music. Looking to meet awesome people!",
-    photo: profile,
-  };
+  const user = getProfile();
+  const [mainPhoto, setMainPhoto] = useState(
+    (user.photos && user.photos[0]) ||
+      ""
+  );
+  const fileInputRef = useRef();
 
-  // Animated background CSS
-  const heartBgStyle = `
-@keyframes gradientMove {
-  0%, 100% { background-position: 0% 50% }
-  50% { background-position: 100% 50% }
-}
-.bg-animated-love {
-  background: linear-gradient(120deg, #ff80b5 0%, #f5d0fe 40%, #a7e6ff 80%, #f3a8ff 100%);
-  background-size: 200% 200%;
-  animation: gradientMove 12s ease-in-out infinite;
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  opacity: 0.60;
-}
-.love-heart {
-  position: absolute;
-  opacity: 0.16;
-  pointer-events: none;
-  animation: floatHeart 12s ease-in-out infinite;
-}
-.love-heart-1 { top: 8%; left: 14%; width: 56px; animation-delay: 0s;}
-.love-heart-2 { top: 60%; left: 85%; width: 36px; animation-delay: 2s;}
-.love-heart-3 { top: 80%; left: 35%; width: 48px; animation-delay: 6s;}
-.love-heart-4 { top: 22%; left: 60%; width: 32px; animation-delay: 4s;}
-@keyframes floatHeart {
-  0%, 100% { transform: translateY(0) scale(1);}
-  50% { transform: translateY(-32px) scale(1.1);}
-}
-`;
+  // To trigger file input
+  function handleCameraClick() {
+    fileInputRef.current.click();
+  }
+
+  // When user picks new photo
+  function handlePhotoChange(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setMainPhoto(reader.result);
+      // Save to profile in localStorage for persistence
+      const profile = getProfile();
+      profile.photos = [reader.result, ...(profile.photos?.slice(1) || [])];
+      localStorage.setItem("profile", JSON.stringify(profile));
+    };
+    reader.readAsDataURL(file);
+  }
+
+  // Show interests as chips
+  const interestChips = user.interests
+    ? typeof user.interests === "string"
+      ? user.interests.split(",").map((x) => x.trim())
+      : user.interests
+    : [];
+
+  // Gallery
+  const gallery =
+    user.photos && user.photos.length > 1 ? user.photos.slice(1) : [];
 
   return (
-    <div className="flex min-h-screen bg-white relative overflow-hidden">
-      {/* Animated love background */}
-      <style>{heartBgStyle}</style>
-      <div className="bg-animated-love z-0"></div>
-      <svg
-        className="love-heart love-heart-1 z-0"
-        viewBox="0 0 48 48"
-        fill="none"
-      >
-        <path
-          d="M24 42s-12.94-8.35-16.12-15.04C4.02 23.52 3 21.31 3 18.98 3 13.46 7.67 9 13.06 9c3.07 0 6.13 1.36 8.16 3.58C23.87 12.36 26.93 11 30 11c5.39 0 10.06 4.46 10.06 9.98 0 2.33-1.02 4.54-4.88 7.98C36.94 33.65 24 42 24 42z"
-          fill="#ff8fab"
-        />
-      </svg>
-      <svg
-        className="love-heart love-heart-2 z-0"
-        viewBox="0 0 48 48"
-        fill="none"
-      >
-        <path
-          d="M24 42s-12.94-8.35-16.12-15.04C4.02 23.52 3 21.31 3 18.98 3 13.46 7.67 9 13.06 9c3.07 0 6.13 1.36 8.16 3.58C23.87 12.36 26.93 11 30 11c5.39 0 10.06 4.46 10.06 9.98 0 2.33-1.02 4.54-4.88 7.98C36.94 33.65 24 42 24 42z"
-          fill="#f472b6"
-        />
-      </svg>
-      <svg
-        className="love-heart love-heart-3 z-0"
-        viewBox="0 0 48 48"
-        fill="none"
-      >
-        <path
-          d="M24 42s-12.94-8.35-16.12-15.04C4.02 23.52 3 21.31 3 18.98 3 13.46 7.67 9 13.06 9c3.07 0 6.13 1.36 8.16 3.58C23.87 12.36 26.93 11 30 11c5.39 0 10.06 4.46 10.06 9.98 0 2.33-1.02 4.54-4.88 7.98C36.94 33.65 24 42 24 42z"
-          fill="#e879f9"
-        />
-      </svg>
-      <svg
-        className="love-heart love-heart-4 z-0"
-        viewBox="0 0 48 48"
-        fill="none"
-      >
-        <path
-          d="M24 42s-12.94-8.35-16.12-15.04C4.02 23.52 3 21.31 3 18.98 3 13.46 7.67 9 13.06 9c3.07 0 6.13 1.36 8.16 3.58C23.87 12.36 26.93 11 30 11c5.39 0 10.06 4.46 10.06 9.98 0 2.33-1.02 4.54-4.88 7.98C36.94 33.65 24 42 24 42z"
-          fill="#fda4af"
-        />
-      </svg>
-
-      {/* Sidebar */}
+    <div className="flex min-h-screen bg-[#FFF8F0] relative">
       <Sidebar />
-
-      {/* Main content */}
-      <main className="flex-1 flex flex-col items-center justify-center pl-0 md:pl-20 relative z-10">
-        <div className="w-full max-w-xs p-6 bg-white/90 rounded-2xl shadow-lg flex flex-col items-center">
-          <img
-            src={user.photo}
-            alt="Profile"
-            className="w-28 h-28 rounded-full object-cover mb-4"
-          />
-          <h2 className="text-2xl font-bold text-black mb-1">
-            {user.name}, {user.age}
-          </h2>
-          <p className="text-gray-600 mb-4 text-center">{user.bio}</p>
-          <Link
-            to="/editprofile"
-            className="bg-pink-500 hover:bg-pink-600 text-white rounded-full px-6 py-2 font-semibold transition"
+      <main className="flex-1 flex flex-col items-center justify-center p-4">
+        <div className="bg-white rounded-3xl shadow-xl max-w-md w-full p-6 relative flex flex-col items-center">
+          {/* Profile main photo with camera icon */}
+          <div className="relative mb-3 flex items-center justify-center">
+            <img
+              src={mainPhoto}
+              alt="profile"
+              className="w-36 h-36 rounded-full object-cover border-4 border-[#FF3366] shadow-lg"
+            />
+            {/* Camera icon */}
+            <button
+              type="button"
+              className="absolute -bottom-2 -right-2 bg-[#EA4156]  rounded-full p-3 shadow transition hover:bg-[#FF3366]"
+              style={{ zIndex: 10 }}
+              onClick={handleCameraClick}
+              title="Change Profile Photo"
+            >
+              <FiCamera className="text-white" size={28} />
+              <input
+                type="file"
+                accept="image/*"
+                ref={fileInputRef}
+                className="hidden"
+                onChange={handlePhotoChange}
+              />
+            </button>
+          </div>
+          {/* Name, age */}
+          <div className="text-center mt-2">
+            <span className="text-2xl font-extrabold text-[#22223B]">
+              {user.firstName}
+            </span>
+            {user.age && (
+              <span className="text-2xl font-normal text-[#EA4156]">
+                , {user.age}
+              </span>
+            )}
+            <div className="text-[#EA4156] text-base font-medium mt-1">
+              {user.location}
+            </div>
+          </div>
+          {/* Zodiac, Gender, Looking for */}
+          <div className="flex justify-center gap-3 mt-2">
+            {user.zodiac && (
+              <span className="bg-[#FFF0F4] text-[#EA4156] px-3 py-1 rounded-full text-xs font-semibold">
+                {user.zodiac}
+              </span>
+            )}
+            {user.gender && (
+              <span className="bg-[#FDE8EA] text-[#22223B] px-3 py-1 rounded-full text-xs font-medium">
+                {user.gender === "M"
+                  ? "Man"
+                  : user.gender === "F"
+                  ? "Woman"
+                  : user.gender}
+              </span>
+            )}
+            {user.lookingFor && (
+              <span className="bg-[#E4F1FB] text-[#22223B] px-3 py-1 rounded-full text-xs font-medium">
+                Looking for {user.lookingFor}
+              </span>
+            )}
+          </div>
+          {/* Bio */}
+          {user.bio && (
+            <div className="text-[#22223B] text-base mt-5 mb-2 text-center">
+              {user.bio}
+            </div>
+          )}
+          {/* Interests */}
+          {interestChips.length > 0 && (
+            <div className="flex flex-wrap gap-2 justify-center mt-2 mb-4">
+              {interestChips.map(
+                (interest, idx) =>
+                  interest && (
+                    <span
+                      key={idx}
+                      className="bg-[#FFE6EF] text-[#EA4156] px-4 py-2 rounded-full text-sm font-medium"
+                    >
+                      {interest}
+                    </span>
+                  )
+              )}
+            </div>
+          )}
+          {/* Gallery */}
+          {gallery.length > 0 && (
+            <div className="flex gap-2 mt-4 flex-wrap justify-center">
+              {gallery.map(
+                (url, idx) =>
+                  url && (
+                    <img
+                      key={idx}
+                      src={url}
+                      alt={`gallery${idx + 1}`}
+                      className="w-16 h-16 rounded-2xl object-cover border border-[#FFB3C6]"
+                    />
+                  )
+              )}
+            </div>
+          )}
+          {/* Edit Button */}
+          <button
+            onClick={() => (window.location.href = "/editprofile")}
+            className="mt-6 bg-gradient-to-r from-[#FF3366] to-[#E63946] text-white font-bold rounded-full py-3 px-8 shadow hover:brightness-110 transition"
           >
             Edit Profile
-          </Link>
+          </button>
         </div>
       </main>
     </div>

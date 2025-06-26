@@ -20,10 +20,9 @@ export default function Sidebar() {
   return (
     <aside
       className="hidden md:flex flex-col 
-      bg-white/50 backdrop-blur-md
-      border-r border-[#f5d0fe]
-      text-gray-800 w-20 min-h-screen items-center pt-20 gap-6 fixed top-0 left-0 z-40 shadow-xl"
-        >
+      bg-[#22223B] backdrop-blur-md
+      text-[#FFF8F0] w-20 min-h-screen items-center pt-20 gap-6 fixed top-0 left-0 z-40 shadow-xl"
+    >
       {/* Logo */}
       <Link to="/feed" className="mb-10" title="Feed">
         <span className="text-3xl font-bold">❤️</span>
@@ -34,28 +33,28 @@ export default function Sidebar() {
         <Link
           to="/feed"
           title="Home"
-          className="hover:bg-pink-200 w-full flex justify-center py-3 rounded transition"
+          className="hover:text-[#FF3366] w-full flex justify-center py-3  transition"
         >
           <FaHome size={24} />
         </Link>
         <Link
           to="/matches"
           title="Matches"
-          className="hover:bg-pink-200 w-full flex justify-center py-3 rounded transition"
+          className="hover:text-[#FF3366] w-full flex justify-center py-3  transition"
         >
           <FaCommentDots size={24} />
         </Link>
         <Link
           to="/chat"
           title="Chat"
-          className="hover:bg-pink-200 w-full flex justify-center py-3 rounded transition"
+          className="hover:text-[#FF3366] w-full flex justify-center py-3  transition"
         >
           <FaComments size={24} />
         </Link>
         <Link
           to="/profile"
           title="Profile"
-          className="hover:bg-pink-200 w-full flex justify-center py-3 rounded transition"
+          className="hover:text-[#FF3366] w-full flex justify-center py-3 transition"
         >
           <FaUser size={24} />
         </Link>
@@ -65,7 +64,7 @@ export default function Sidebar() {
       <button
         onClick={handleLogout}
         title="Logout"
-        className="mb-8 hover:bg-pink-200 w-full h-12 flex items-center justify-center rounded transition"
+        className="mb-8 hover:text-[#FF3366] w-full h-12 flex items-center justify-center rounded transition"
       >
         <FaSignOutAlt size={22} />
       </button>
