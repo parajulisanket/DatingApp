@@ -372,7 +372,7 @@ export default function CreateProfile() {
                     <img
                       src={galleryPreview[i]}
                       className="object-cover w-full h-full"
-                      alt="Photo"
+                      // alt="Photo"
                     />
                   ) : (
                     <FiCamera className="text-[#EA4156] text-3xl" />

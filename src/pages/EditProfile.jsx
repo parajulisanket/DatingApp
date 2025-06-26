@@ -83,7 +83,7 @@ export default function EditProfile() {
   const [bio, setBio] = useState(profile.bio || "");
   const [locationField, setLocationField] = useState(profile.location || "");
   const [email] = useState(profile.email || "");
-  const [photos, setPhotos] = useState(profile.photos || []);
+  // const [photos, setPhotos] = useState(profile.photos || []);
   const [photoPreviews, setPhotoPreviews] = useState(profile.photos || []);
   const [mainPhoto, setMainPhoto] = useState(
     (profile.photos && profile.photos[0]) || ""
