@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import Sidebar from "../components/Sidebar/Sidebar";
 import { FiCamera, FiArrowLeft } from "react-icons/fi";
 
-// Example interests (add more as needed)
 const INTERESTS = [
   "Photography",
   "Shopping",
@@ -124,10 +123,7 @@ export default function CreateProfile() {
 
   return (
     <div className="flex min-h-screen bg-[#FFF8F0] relative">
-      {/* Sidebar always visible on the left, above z-0 */}
       <Sidebar />
-
-      {/* Main Content */}
       <div className="flex-1 flex flex-col items-center justify-center px-2 py-6 font-[Inter]">
         {step === 1 && (
           <form className={card} onSubmit={handleNext}>
@@ -369,7 +365,7 @@ export default function CreateProfile() {
                     <img
                       src={galleryPreview[i]}
                       className="object-cover w-full h-full"
-                      alt={`Gallery photo ${i + 1}`}
+                      alt="" // <-- Fixed alt
                     />
                   ) : (
                     <FiCamera className="text-[#EA4156] text-3xl" />
