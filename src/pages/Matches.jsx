@@ -1,123 +1,119 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import Sidebar from "../components/Sidebar/Sidebar";
-import Kendall from "../assets/kendall.jpeg";
-import Salena from "../assets/salena.jpeg";
+import BottomNav from "../components/BottomNav/BottomNav";
+import { FiSettings } from "react-icons/fi";
+import kylie from "../assets/kylie.jpg";
+// import annabelle from "../assets/annabelle.jpg";
+import profile1 from "../assets/profile1.jpeg";
+import profile2 from "../assets/profile2.jpeg";
+import profile3 from "../assets/profile3.jpeg";
+import profile4 from "../assets/profile4.jpeg";
+import profile5 from "../assets/profile5.jpeg";
 
-const matches = [
-  {
-    id: 1,
-    name: "Salena ",
-    age: 29,
-    photo: Salena,
-    lastMessage: "Hey there!",
-  },
-  {
-    id: 2,
-    name: "Kendall",
-    age: 25,
-    photo: Kendall,
-    lastMessage: "How was your weekend?",
-  },
+// Today/Yesterday data (update as needed)
+const todayMatches = [
+  { id: 1, name: "Leilani", age: 19, photo: kylie },
+  { id: 2, name: "Annabelle", age: 20, photo: profile3 },
+  { id: 3, name: "Reagan", age: 24, photo: profile4 },
+  { id: 4, name: "Hadley", age: 25, photo: profile5 },
 ];
 
-// Same animated background CSS as Feed.jsx
-const heartBgStyle = `
-@keyframes gradientMove {
-  0%, 100% { background-position: 0% 50% }
-  50% { background-position: 100% 50% }
-}
-.bg-animated-love {
-  background: linear-gradient(120deg, #ff80b5 0%, #f5d0fe 40%, #a7e6ff 80%, #f3a8ff 100%);
-  background-size: 200% 200%;
-  animation: gradientMove 12s ease-in-out infinite;
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  opacity: 0.60;
-}
-.love-heart {
-  position: absolute;
-  opacity: 0.16;
-  pointer-events: none;
-  animation: floatHeart 12s ease-in-out infinite;
-}
-.love-heart-1 { top: 8%; left: 14%; width: 56px; animation-delay: 0s;}
-.love-heart-2 { top: 60%; left: 85%; width: 36px; animation-delay: 2s;}
-.love-heart-3 { top: 80%; left: 35%; width: 48px; animation-delay: 6s;}
-.love-heart-4 { top: 22%; left: 60%; width: 32px; animation-delay: 4s;}
-@keyframes floatHeart {
-  0%, 100% { transform: translateY(0) scale(1);}
-  50% { transform: translateY(-32px) scale(1.1);}
-}
-`;
+const yesterdayMatches = [
+  { id: 5, name: "Sophie", age: 21, photo: profile1 },
+  { id: 6, name: "Maya", age: 22, photo: profile2 },
+];
 
 export default function Matches() {
   return (
-    <div className="flex min-h-screen bg-white relative overflow-hidden">
-      {/* Animated background */}
-      <style>{heartBgStyle}</style>
-      <div className="bg-animated-love z-0"></div>
-      {/* Floating hearts */}
-      <svg className="love-heart love-heart-1 z-0" viewBox="0 0 48 48" fill="none">
-        <path
-          d="M24 42s-12.94-8.35-16.12-15.04C4.02 23.52 3 21.31 3 18.98 3 13.46 7.67 9 13.06 9c3.07 0 6.13 1.36 8.16 3.58C23.87 12.36 26.93 11 30 11c5.39 0 10.06 4.46 10.06 9.98 0 2.33-1.02 4.54-4.88 7.98C36.94 33.65 24 42 24 42z"
-          fill="#ff8fab"
-        />
-      </svg>
-      <svg className="love-heart love-heart-2 z-0" viewBox="0 0 48 48" fill="none">
-        <path
-          d="M24 42s-12.94-8.35-16.12-15.04C4.02 23.52 3 21.31 3 18.98 3 13.46 7.67 9 13.06 9c3.07 0 6.13 1.36 8.16 3.58C23.87 12.36 26.93 11 30 11c5.39 0 10.06 4.46 10.06 9.98 0 2.33-1.02 4.54-4.88 7.98C36.94 33.65 24 42 24 42z"
-          fill="#f472b6"
-        />
-      </svg>
-      <svg className="love-heart love-heart-3 z-0" viewBox="0 0 48 48" fill="none">
-        <path
-          d="M24 42s-12.94-8.35-16.12-15.04C4.02 23.52 3 21.31 3 18.98 3 13.46 7.67 9 13.06 9c3.07 0 6.13 1.36 8.16 3.58C23.87 12.36 26.93 11 30 11c5.39 0 10.06 4.46 10.06 9.98 0 2.33-1.02 4.54-4.88 7.98C36.94 33.65 24 42 24 42z"
-          fill="#e879f9"
-        />
-      </svg>
-      <svg className="love-heart love-heart-4 z-0" viewBox="0 0 48 48" fill="none">
-        <path
-          d="M24 42s-12.94-8.35-16.12-15.04C4.02 23.52 3 21.31 3 18.98 3 13.46 7.67 9 13.06 9c3.07 0 6.13 1.36 8.16 3.58C23.87 12.36 26.93 11 30 11c5.39 0 10.06 4.46 10.06 9.98 0 2.33-1.02 4.54-4.88 7.98C36.94 33.65 24 42 24 42z"
-          fill="#fda4af"
-        />
-      </svg>
-
-      {/* Sidebar */}
-      <div className="hidden md:block z-20">
-        <Sidebar />
+    <div className="w-full h-full min-h-screen md:w-[375px] md:h-[812px] md:rounded-[2rem] md:shadow-2xl bg-[#fafafd] overflow-hidden flex flex-col relative ">
+      {/* Header */}
+      <div className="flex items-center justify-between px-6 pt-10 pb-3">
+        <h1 className="text-3xl font-black text-black ">Matches</h1>
+        <button className="rounded-full border border-gray-200 w-11 h-11 flex items-center justify-center text-[#FF3366] hover:bg-pink-50 transition  text-2xl bg-white shadow-md">
+          <FiSettings />
+        </button>
       </div>
-      
-      {/* Main content */}
-      <div className="flex-1 flex flex-col items-center pt-16 md:pt-8 relative z-10">
-        <div className="w-full max-w-xs">
-          <h2 className="text-2xl font-bold text-white mb-6 text-center drop-shadow">
-            Your Matches
-          </h2>
-          <div className="flex flex-col gap-4">
-            {matches.map(match => (
-              <Link
-                key={match.id}
-                to={`/chat/${match.id}`}
-                className="flex items-center bg-white/90 rounded-2xl px-4 py-3 shadow hover:bg-pink-50 transition"
+      <p className="text-gray-500 text-base mt-2 m-6">
+        This is a list of people who have liked you and your matches.
+      </p>
+
+      <div className="flex-1 w-full overflow-y-auto pb-24 example">
+        {/* Today */}
+        <div className="w-full px-5 mb-6">
+          <div className="flex items-center gap-2 mb-3">
+            <div className="flex-1 h-px bg-gray-200" />
+            <span className="text-gray-400 text-sm font-semibold">Today</span>
+            <div className="flex-1 h-px bg-gray-200" />
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            {todayMatches.map((m) => (
+              <div
+                key={m.id}
+                className="rounded-2xl overflow-hidden shadow bg-white relative group"
               >
                 <img
-                  src={match.photo}
-                  alt={match.name}
-                  className="w-12 h-12 rounded-full object-cover border-2 border-pink-400 mr-4"
+                  src={m.photo}
+                  alt={m.name}
+                  className="w-full h-40 object-cover"
                 />
-                <div className="flex-1">
-                  <h3 className="font-semibold text-black">
-                    {match.name}, {match.age}
-                  </h3>
-                  <p className="text-gray-600 text-sm">{match.lastMessage}</p>
+                {/* Name overlay */}
+                <div className="absolute bottom-10 left-0 w-full py-2 px-3">
+                  <span className="text-white font-semibold text-lg drop-shadow">
+                    {m.name}, {m.age}
+                  </span>
                 </div>
-              </Link>
+                {/* Action icons */}
+                <div className="absolute left-0 right-0 bottom-2 flex justify-between px-5 z-10">
+                  <button className="bg-white w-9 h-9 rounded-full flex items-center justify-center shadow text-gray-700 text-xl hover:bg-gray-100">
+                    &#10006;
+                  </button>
+                  <button className="bg-white w-9 h-9 rounded-full flex items-center justify-center shadow text-pink-500 text-xl hover:bg-pink-100">
+                    &#10084;
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+        {/* Yesterday */}
+        <div className="w-full px-5 mb-4">
+          <div className="flex items-center gap-2 mb-3">
+            <div className="flex-1 h-px bg-gray-200" />
+            <span className="text-gray-400 text-sm font-semibold">
+              Yesterday
+            </span>
+            <div className="flex-1 h-px bg-gray-200" />
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            {yesterdayMatches.map((m) => (
+              <div
+                key={m.id}
+                className="rounded-2xl overflow-hidden shadow bg-white relative group"
+              >
+                <img
+                  src={m.photo}
+                  alt={m.name}
+                  className="w-full h-40 object-cover"
+                />
+                <div className="absolute bottom-10 left-0 w-full py-2 px-3">
+                  <span className="text-white font-semibold text-lg drop-shadow">
+                    {m.name}, {m.age}
+                  </span>
+                </div>
+                <div className="absolute left-0 right-0 bottom-2 flex justify-between px-5 z-10">
+                  <button className="bg-white w-9 h-9 rounded-full flex items-center justify-center shadow text-gray-700 text-xl hover:bg-gray-100">
+                    &#10006;
+                  </button>
+                  <button className="bg-white w-9 h-9 rounded-full flex items-center justify-center shadow text-pink-500 text-xl hover:bg-pink-100">
+                    &#10084;
+                  </button>
+                </div>
+              </div>
             ))}
           </div>
         </div>
       </div>
+      {/* Bottom Nav */}
+      <BottomNav />
     </div>
   );
 }

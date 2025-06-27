@@ -1,6 +1,6 @@
 import React from "react";
 import backgroundImage from "../assets/backgroundImage.jpg";
-import Footer from "../components/Common/Footer";
+// import Footer from "../components/Common/Footer";
 
 export default function Home() {
   return (
@@ -40,7 +40,7 @@ export default function Home() {
         </a>
       </div>
 
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }

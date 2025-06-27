@@ -1,29 +1,44 @@
 import React, { useState } from "react";
 import UserList from "../components/UserList";
 import Chat from "../pages/Chat";
-import Sidebar from "../components/Sidebar/Sidebar";
+
+import userlist1 from "../assets/userlist1.png";
+import userlist2 from "../assets/userlist2.jpg";
+import userlist3 from "../assets/unerlist3.webp";
 
 export default function ChatApp() {
   const [users, setUsers] = useState([
     {
       id: 1,
       name: "Kylie",
-      photo: "https://randomuser.me/api/portraits/women/44.jpg",
-      lastSeen: "10 minutes ago",
-      messages: [
-        { fromMe: false, text: "Hi!" },
-        { fromMe: true, text: "Hello Shreya!" },
-      ],
+      photo: userlist1,
+      activity: true,
+      lastSeen: "23 min",
+      unread: 1,
+      typing: false,
+      lastMessage: { text: "Sticker 😍", fromMe: false, time: "23 min" },
+      messages: [{ fromMe: false, text: "Sticker 😍", time: "2:55 PM" }],
     },
     {
       id: 2,
-      name: "Shreya",
-      photo: "https://randomuser.me/api/portraits/women/45.jpg",
-      lastSeen: "1 hour ago",
-      messages: [
-        { fromMe: false, text: "Hey!" },
-        { fromMe: true, text: "Hi Shreya, how are you?" },
-      ],
+      name: "Kim",
+      photo: userlist2,
+      activity: true,
+      lastSeen: "27 min",
+      unread: 2,
+      typing: true,
+      lastMessage: { text: "Typing..", fromMe: false, time: "27 min" },
+      messages: [{ fromMe: false, text: "Typing...", time: "2:57 PM" }],
+    },
+    {
+      id: 3,
+      name: "Kendal",
+      photo: userlist3,
+      lastSeen: "33 min",
+      unread: 0,
+      typing: false,
+      lastMessage: { text: "Ok, see you then.", fromMe: false, time: "33 min" },
+      messages: [{ fromMe: false, text: "Ok, see you then.", time: "2:50 PM" }],
     },
   ]);
   const [selectedUserId, setSelectedUserId] = useState(null);
@@ -37,9 +52,11 @@ export default function ChatApp() {
               messages: [
                 ...u.messages,
                 typeof messageOrObj === "string"
-                  ? { fromMe: true, text: messageOrObj }
-                  : { fromMe: true, ...messageOrObj },
+                  ? { fromMe: true, text: messageOrObj, time: "3:12 PM" }
+                  : { fromMe: true, ...messageOrObj, time: "3:12 PM" },
               ],
+              unread: 0,
+              typing: false,
             }
           : u
       )
@@ -49,30 +66,20 @@ export default function ChatApp() {
   const selectedUser = users.find((u) => u.id === selectedUserId);
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-pink-100 to-purple-100">
-      {/* Sidebar OUTSIDE card, hidden on mobile */}
-      <div className="hidden md:block">
-        <Sidebar />
-      </div>
-      {/* Main card container: only this has border/radius/shadow */}
-      <div
-        className="w-full max-w-md h-[96vh] flex flex-col rounded-[32px] bg-white shadow-2xl overflow-hidden border border-black"
-        style={{ minHeight: "640px", maxHeight: "96vh" }}
-      >
-        {!selectedUserId ? (
-          <UserList
-            users={users}
-            selectedUserId={selectedUserId}
-            onSelect={setSelectedUserId}
-          />
-        ) : (
-          <Chat
-            user={selectedUser}
-            onSendMessage={handleSendMessage}
-            onBack={() => setSelectedUserId(null)}
-          />
-        )}
-      </div>
+    <div className="flex-1 flex flex-col w-full h-full bg-white">
+      {!selectedUserId ? (
+        <UserList
+          users={users}
+          selectedUserId={selectedUserId}
+          onSelect={setSelectedUserId}
+        />
+      ) : (
+        <Chat
+          user={selectedUser}
+          onSendMessage={handleSendMessage}
+          onBack={() => setSelectedUserId(null)}
+        />
+      )}
     </div>
   );
 }
