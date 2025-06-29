@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { FiCamera, FiArrowLeft } from "react-icons/fi";
-import Sidebar from "../components/BottomNav/BottomNav";
 
 const INTERESTS = [
   "Photography",
@@ -481,10 +480,7 @@ export default function EditProfile() {
             )}
           </form>
         </main>
-        {/* BOTTOM NAV on mobile */}
-        <div className="block md:hidden w-full">
-          <Sidebar />
-        </div>
+
       </div>
     </div>
   );
