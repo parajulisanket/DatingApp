@@ -1,7 +1,6 @@
 import React from "react";
 import BottomNav from "../components/BottomNav/BottomNav";
 import kylie from "../assets/kylie.jpg";
-// import annabelle from "../assets/annabelle.jpg";
 import profile1 from "../assets/profile1.jpeg";
 import profile2 from "../assets/profile2.jpeg";
 import profile3 from "../assets/profile3.jpeg";
@@ -63,10 +62,10 @@ export default function Matches() {
                 </div>
                 {/* Action icons */}
                 <div className="absolute left-0 right-0 bottom-2 flex justify-between px-5 z-10">
-                  <button className="bg-white w-9 h-9 rounded-full flex items-center justify-center shadow text-gray-700 text-xl hover:bg-gray-100">
+                  <button className="bg-gray-200 w-9 h-9 rounded-full flex items-center justify-center shadow text-gray-500 text-xl hover:text-black">
                     &#10006;
                   </button>
-                  <button className="bg-white w-9 h-9 rounded-full flex items-center justify-center shadow text-pink-500 text-xl hover:bg-pink-100">
+                  <button className="bg-gray-200 w-9 h-9 rounded-full flex items-center justify-center shadow text-gray-500 text-xl hover:text-[#FF3366]">
                     &#10084;
                   </button>
                 </div>
@@ -100,10 +99,10 @@ export default function Matches() {
                   </span>
                 </div>
                 <div className="absolute left-0 right-0 bottom-2 flex justify-between px-5 z-10">
-                  <button className="bg-white w-9 h-9 rounded-full flex items-center justify-center shadow text-gray-700 text-xl hover:bg-gray-100">
+                  <button className="bg-gray-200 w-9 h-9 rounded-full flex items-center justify-center shadow text-gray-500 text-xl hover:text-black">
                     &#10006;
                   </button>
-                  <button className="bg-white w-9 h-9 rounded-full flex items-center justify-center shadow text-pink-500 text-xl hover:bg-pink-100">
+                  <button className="bg-gray-200 w-9 h-9 rounded-full flex items-center justify-center shadow text-gray-500 text-xl hover:text-[#FF3366]">
                     &#10084;
                   </button>
                 </div>

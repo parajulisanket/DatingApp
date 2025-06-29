@@ -58,7 +58,7 @@ function AppLayout() {
     hideBottomNavRoutes.includes(pathLower);
 
   return (
-    <div className="relative min-h-screen flex items-center justify-center bg-gray-400">
+    <div className="relative min-h-screen flex items-center justify-center bg-black/50">
       {/* Mobile-mockup container */}
       <div
         className="

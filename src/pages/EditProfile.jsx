@@ -157,11 +157,11 @@ export default function EditProfile() {
 
   // UI Classes
   const input =
-    "w-full rounded-2xl border border-[#eee] px-5 py-4 text-base bg-white placeholder-[#b0b0b0] focus:outline-none mb-4";
+    "w-full rounded-2xl border border-[#eee] px-5 py-4 text-base bg-gray-200 placeholder-gray-500 focus:outline-none mb-4";
   const mainBtn =
     "bg-[#EA4156] text-white font-bold w-full rounded-2xl py-4 text-base mt-8 shadow-md hover:brightness-105 transition";
   const chip =
-    "px-4 py-2 rounded-full text-xs font-medium cursor-pointer border border-[#ffd6e0] hover:bg-[#EA4156] hover:text-white transition";
+    "px-4 py-2 rounded-xl text-xs font-thin cursor-pointer  hover:bg-[#EA4156] hover:text-white transition shadow";
 
   // Responsive header inside card only
   function StepHeader() {
@@ -261,7 +261,7 @@ export default function EditProfile() {
                     readOnly
                   />
                   <input
-                    className={input + " bg-[#F6F6F6] mb-0"}
+                    className={input + " bg-[#F6F6F6] mb-0 "}
                     value={zodiac ? `Zodiac: ${zodiac}` : ""}
                     disabled
                     readOnly
@@ -287,7 +287,7 @@ export default function EditProfile() {
                       className={`flex-1 py-3 rounded-full border text-base ${
                         gender === g
                           ? "bg-gradient-to-r from-[#FF3366] to-[#E63946] text-white font-bold"
-                          : "bg-[#FFF8F0] text-[#22223B] border-[#FFD6E0]"
+                          : "bg-gray-200 text-[#22223B] border-gray-300"
                       }`}
                       onClick={() => setGender(g)}
                     >
@@ -307,14 +307,14 @@ export default function EditProfile() {
                 <h2 className="text-3xl font-bold mb-4 text-[#E63946] w-full text-left">
                   Your Interests
                 </h2>
-                <div className="flex flex-wrap gap-2 w-full my-6 tracking-wide ">
+                <div className="flex flex-wrap gap-2 w-full my-6 tracking-wide">
                   {INTERESTS.map((item) => (
                     <span
                       key={item}
                       className={
                         interests.includes(item)
                           ? chip + " bg-[#EA4156] text-white"
-                          : chip + " bg-[#FFE6EF] text-[#EA4156]"
+                          : chip + "text-gray-700 border border-gray-300 bg-white "
                       }
                       onClick={() => handleInterestToggle(item)}
                     >
@@ -342,7 +342,7 @@ export default function EditProfile() {
                       className={`flex-1 py-3 rounded-full border text-base ${
                         lookingFor === g
                           ? "bg-gradient-to-r from-[#FF3366] to-[#E63946] text-white font-bold"
-                          : "bg-[#FFF8F0] text-[#22223B] border-[#FFD6E0]"
+                          : "bg-gray-200 text-[#22223B] border-gray-300"
                       }`}
                       onClick={() => setLookingFor(g)}
                     >
@@ -404,7 +404,7 @@ export default function EditProfile() {
                 </h2>
                 <textarea
                   placeholder="Short Bio"
-                  className="rounded-2xl px-4 py-3 border w-full resize-none my-6"
+                  className="rounded-2xl px-4 py-3 border w-full resize-none my-6 bg-gray-200 placeholder-gray-500 "
                   rows={2}
                   value={bio}
                   onChange={(e) => setBio(e.target.value)}

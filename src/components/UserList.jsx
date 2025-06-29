@@ -45,7 +45,7 @@ export default function UserList({ users, selectedUserId, onSelect }) {
       <div className="flex gap-4 px-6 pb-3 overflow-x-auto">
         {activities.map((a, idx) => (
           <div key={idx} className="flex flex-col items-center">
-            <div className="w-14 h-14 rounded-full border-2 border-pink-400 p-1 shadow-lg bg-white">
+            <div className="w-16 h-16 rounded-full border-2 border-[#FF3366] p-1 shadow-lg bg-white">
               <img
                 src={a.photo}
                 alt={a.name}
@@ -91,14 +91,14 @@ export default function UserList({ users, selectedUserId, onSelect }) {
                     {u.name}
                   </span>
                   {u.unread > 0 && (
-                    <span className="ml-1 bg-pink-500 text-white text-xs font-bold rounded-full px-2 py-0.5">
+                    <span className="ml-1 bg-[#FF3366] text-white text-xs font-bold rounded-full px-2 py-0.5">
                       {u.unread}
                     </span>
                   )}
                 </div>
                 <span
                   className={`text-sm text-left truncate w-full ${
-                    u.typing ? "text-pink-500" : "text-gray-500"
+                    u.typing ? "text-[#FF3366]" : "text-gray-500"
                   }`}
                 >
                   {u.typing

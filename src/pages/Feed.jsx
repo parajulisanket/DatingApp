@@ -1,6 +1,11 @@
 import React, { useState, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { FaHeart, FaTimes,  FaStar } from "react-icons/fa";
+import {
+  motion,
+  AnimatePresence,
+  useMotionValue,
+  useTransform,
+} from "framer-motion";
+import { FaHeart, FaTimes, FaStar } from "react-icons/fa";
 import { HiOutlineLocationMarker } from "react-icons/hi";
 import { IoChevronBack } from "react-icons/io5";
 
@@ -63,24 +68,27 @@ const profiles = [
 
 // Main Tinder Card
 function TinderCard({ profile, drag, onDragEnd, swipe, swipeIcon }) {
+  const x = useMotionValue(0);
+  const rotate = useTransform(x, [-340, 0, 340], [-24, 0, 24]);
+
   return (
     <motion.div
       className="absolute w-full h-full rounded-2xl overflow-hidden shadow-lg bg-neutral-900 select-none"
       drag={drag ? "x" : false}
       dragConstraints={{ left: 0, right: 0 }}
       dragElastic={1}
-      animate={{ scale: 1, y: 0, x: 0, rotate: 0, opacity: 1 }}
-      initial={{ scale: 0.97, y: 32, x: 0, rotate: 0, opacity: 0.9 }}
+      style={{ x, rotate, zIndex: 10 }}
+      animate={{ scale: 1, y: 0, opacity: 1 }}
+      initial={{ scale: 0.97, y: 32, opacity: 0.9 }}
       exit={
         swipe === "right"
-          ? { x: 500, rotate: 22, opacity: 0 }
+          ? { x: 500, y: 180, rotate: 24, opacity: 0 }
           : swipe === "left"
-          ? { x: -140, rotate: -22, opacity: 0 }
+          ? { x: -500, y: 180, rotate: -24, opacity: 0 }
           : { opacity: 0, scale: 0.8 }
       }
       transition={{ type: "spring", stiffness: 330, damping: 24 }}
       onDragEnd={drag ? onDragEnd : undefined}
-      style={{ zIndex: 10 }}
     >
       {/* Profile Image */}
       <img

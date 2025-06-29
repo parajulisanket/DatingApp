@@ -107,7 +107,7 @@ export default function CreateProfile() {
     "bg-[#EA4156] text-white font-bold w-full rounded-full py-4 text-lg shadow-lg hover:brightness-105 transition";
   const input =
     "w-full rounded-full border border-[#eee] px-6 py-4 text-lg bg-gray-200 text-[#22223B] placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#FF3366] mb-4";
-  const formWrap = "w-full max-w-xs flex flex-col items-center px-2 pt-[70px]"; // Add pt-[70px]
+  const formWrap = "w-full max-w-xs flex flex-col items-center px-2 pt-[70px]"; 
 
   // Header bar for each step
   function StepHeader({ showBack = true, showSkip = true }) {
@@ -246,11 +246,11 @@ export default function CreateProfile() {
               <button
                 key={opt}
                 type="button"
-                className={`px-4 py-2 rounded-full border font-medium text-base
+                className={`px-4 py-2 rounded-xl shadow tracking-wide font-thin text-base hover:bg-[#EA4156] hover:text-white transition
                   ${
                     interests.includes(opt)
                       ? "bg-[#EA4156] text-white border-[#EA4156]"
-                      : "bg-[#FFE6EF] text-[#EA4156] border-[#ffd6e0]"
+                      : " text-gray-700 border border-gray-300"
                   }
                 `}
                 onClick={() => handleInterestToggle(opt)}
