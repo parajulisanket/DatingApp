@@ -50,9 +50,9 @@ export default function Profile() {
     user.photos && user.photos.length > 1 ? user.photos.slice(1) : [];
 
   // Handler for settings click (customize as needed)
-  function handleSettingsClick() {
-    window.location.href = "/settings"; // or open a modal
-  }
+  // function handleSettingsClick() {
+  //   window.location.href = "/settings";
+  // }
 
   return (
     <div className="w-full min-h-screen flex flex-col items-center relative bg-white">

@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { FaHeart, FaTimes, FaUndoAlt, FaStar } from "react-icons/fa";
+import { FaHeart, FaTimes,  FaStar } from "react-icons/fa";
 import { HiOutlineLocationMarker } from "react-icons/hi";
 import { IoChevronBack } from "react-icons/io5";
 
@@ -162,10 +162,10 @@ export default function Feed() {
     }, 380);
   };
 
-  const handleRewind = () => {
-    if (isAnimating.current || cardIndex === 0) return;
-    setCardIndex((i) => Math.max(i - 1, 0));
-  };
+  // const handleRewind = () => {
+  //   if (isAnimating.current || cardIndex === 0) return;
+  //   setCardIndex((i) => Math.max(i - 1, 0));
+  // };
 
   const topProfile = profiles[cardIndex];
 

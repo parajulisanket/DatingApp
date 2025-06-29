@@ -13,7 +13,7 @@ export default function Chat({ user, onSendMessage, onBack }) {
   // Estimate heights (in px)
   const INPUT_BAR_HEIGHT = 72; 
   const BOTTOM_NAV_HEIGHT = 75; 
-  const TOTAL_BOTTOM = INPUT_BAR_HEIGHT + BOTTOM_NAV_HEIGHT;
+  // const TOTAL_BOTTOM = INPUT_BAR_HEIGHT + BOTTOM_NAV_HEIGHT;
 
 
 
