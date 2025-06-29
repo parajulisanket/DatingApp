@@ -148,7 +148,7 @@ export default function CreateProfile() {
       {step === 1 && (
         <form className={formWrap} onSubmit={handleNext}>
           <StepHeader showBack={true} showSkip={true} />
-          <h1 className="text-3xl font-extrabold mb-7 text-black w-full text-center">
+          <h1 className="text-3xl font-extrabold mb-7 text-[#EA4156] w-full text-center">
             Profile Details
           </h1>
           <div className="flex flex-col items-center w-full mb-5">
@@ -204,7 +204,7 @@ export default function CreateProfile() {
       {step === 2 && (
         <form className={formWrap} onSubmit={handleNext}>
           <StepHeader showBack={true} showSkip={true} />
-          <h1 className="text-3xl font-bold mb-8 text-[#22223B] w-full text-left">
+          <h1 className="text-3xl font-bold mb-8 text-[#EA4156] w-full text-left">
             I am a
           </h1>
           <div className="flex flex-col gap-4 w-full">
@@ -235,7 +235,7 @@ export default function CreateProfile() {
       {step === 3 && (
         <form className={formWrap} onSubmit={handleNext}>
           <StepHeader showBack={true} showSkip={true} />
-          <h1 className="text-3xl font-bold mb-2 text-[#22223B] w-full text-left">
+          <h1 className="text-3xl font-bold mb-2 text-[#EA4156] w-full text-left">
             Your interests
           </h1>
           <p className="text-[#7a7a7a] mb-5 w-full text-left  text-base">
@@ -269,7 +269,7 @@ export default function CreateProfile() {
       {step === 4 && (
         <form className={formWrap} onSubmit={handleNext}>
           <StepHeader showBack={true} showSkip={true} />
-          <h1 className="text-3xl font-bold mb-8 text-[#22223B] w-full text-left">
+          <h1 className="text-3xl font-bold mb-8 text-[#EA4156] w-full text-left">
             Looking for
           </h1>
           <div className="flex flex-col gap-4 w-full">
@@ -302,7 +302,7 @@ export default function CreateProfile() {
       {step === 5 && (
         <form className={formWrap} onSubmit={handleNext}>
           <StepHeader showBack={true} showSkip={true} />
-          <h1 className="text-3xl font-bold mb-6 text-[#22223B] w-full text-center">
+          <h1 className="text-3xl font-bold mb-6 text-[#EA4156] w-full text-center">
             Add your photos
           </h1>
           <div className="grid grid-cols-3 gap-3 mb-2 w-full justify-center">
@@ -339,7 +339,7 @@ export default function CreateProfile() {
       {step === 6 && (
         <form className={formWrap} onSubmit={handleSubmit}>
           <StepHeader showBack={true} showSkip={false} />
-          <h1 className="text-3xl font-bold mb-8 text-[#22223B] w-full text-center">
+          <h1 className="text-3xl font-bold mb-8 text-[#EA4156] w-full text-center">
             Create account
           </h1>
           <input

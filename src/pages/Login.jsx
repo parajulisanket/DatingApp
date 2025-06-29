@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+// import Footer from "../components/Common/Footer";
 
 const DEMO_EMAIL = "demo@example.com";
 const DEMO_PASSWORD = "password123";
@@ -73,6 +74,7 @@ export default function Login() {
           Sign up
         </Link>
       </div>
+        {/* <Footer /> */}
     </div>
   );
 }

@@ -2,21 +2,19 @@ import React from "react";
 
 export default function Footer() {
   return (
-    <footer className="relative w-full bg-[#22223B] mt-16 px-4 pt-16 pb-6 text-[#FFF8F0]">
+    <div className="w-full bg-[#22223B] px-4 py-8 text-[#FFF8F0] flex flex-col">
       {/* Newsletter section */}
-      <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center mb-12">
-        <div className="mb-8 md:mb-0 md:w-1/2">
-          <h2 className="text-4xl sm:text-6xl font-bold mb-2 leading-tight">
-            Are You In For
-            <br />
-            The Gossips?
-          </h2>
-        </div>
-        <form className="flex flex-col md:flex-row items-center gap-3 w-full md:w-1/2 md:justify-end">
+      <div className="flex flex-col gap-4 mb-8 items-center">
+        <h2 className="text-xl font-bold leading-tight text-center">
+          Are You In For
+          <br />
+          The Gossips?
+        </h2>
+        <form className="w-full flex flex-col gap-2">
           <input
             type="email"
-            placeholder="enter Your email address"
-            className="w-full md:w-80 border-b border-[#FFD6E0] px-3 py-2 outline-none bg-transparent text-lg placeholder-[#FFF8F0]"
+            placeholder="Enter your email address"
+            className="w-full border-b border-[#FFD6E0] px-3 py-2 outline-none bg-transparent text-base placeholder-[#FFF8F0]"
           />
           <button
             onClick={(e) => {
@@ -24,41 +22,42 @@ export default function Footer() {
               alert("Thank you for subscribing!");
             }}
             type="submit"
-            className="mt-2 md:mt-0 flex items-center gap-2 bg-gradient-to-r from-[#FF3366] to-[#E63946] text-white px-6 py-3 rounded-full font-semibold shadow hover:from-[#E63946] hover:to-[#FF3366] transition"
+            className="w-full bg-gradient-to-r from-[#FF3366] to-[#E63946] text-white px-4 py-2 rounded-full font-semibold shadow transition"
           >
             Subscribe Now
           </button>
         </form>
       </div>
 
-      <div className="max-w-6xl mx-auto border-t border-[#FFD6E0] pt-10 flex flex-col md:flex-row md:justify-between md:items-start gap-12">
-        {/* Left side: Brand & about */}
-        <div className="md:w-1/3">
-          <div className="flex items-center gap-2 mb-3">
-            <span className="text-3xl font-extrabold tracking-tight">
+      {/* Main Links and About */}
+      <div className="border-t border-[#FFD6E0] pt-8 flex flex-col gap-8">
+        {/* Brand/About */}
+        <div>
+          <div className="flex items-center gap-2 mb-2 justify-center">
+            <span className="text-xl font-extrabold tracking-tight">
               DatingKIT
             </span>
             <span
               role="img"
               aria-label="heart"
-              className="text-pink-500 text-2xl"
+              className="text-pink-500 text-lg"
             >
               ❤️
             </span>
           </div>
-          <p className="text-[#FFF8F0] mb-4">
+          <p className="text-center text-xs mb-2">
             Mauris mattis lacinia turpis sit amet convallis. Aliquam congue
             vehicula cursus. Aenean eget lacus in metus malesuada lacinia ac
             vitae velit. Fusce elementum fringilla mattis. Donec quis dolor
             orci.
           </p>
         </div>
-        {/* Middle columns */}
-        <div className="flex flex-1 flex-col sm:flex-row justify-between gap-12">
+        {/* Links */}
+        <div className="flex flex-col gap-8 text-center">
           {/* Community */}
           <div>
-            <h3 className="font-bold text-lg mb-3">Community</h3>
-            <ul className="space-y-2 text-[#FFF8F0]">
+            <h3 className="font-bold mb-2">Community</h3>
+            <ul className="space-y-1 text-xs">
               <li>
                 <a href="/guidelines">Guidelines</a>
               </li>
@@ -78,8 +77,8 @@ export default function Footer() {
           </div>
           {/* Contact */}
           <div>
-            <h3 className="font-bold text-lg mb-3">Contact</h3>
-            <ul className="space-y-2 text-[#FFF8F0]">
+            <h3 className="font-bold mb-2">Contact</h3>
+            <ul className="space-y-1 text-xs">
               <li>
                 <a href="/support">Support</a>
               </li>
@@ -96,8 +95,8 @@ export default function Footer() {
           </div>
           {/* Legal */}
           <div>
-            <h3 className="font-bold text-lg mb-3">Legal & Privacy</h3>
-            <ul className="space-y-2 text-[#FFF8F0]">
+            <h3 className="font-bold mb-2">Legal & Privacy</h3>
+            <ul className="space-y-1 text-xs">
               <li>
                 <a href="/services">Terms of Service</a>
               </li>
@@ -119,34 +118,32 @@ export default function Footer() {
       </div>
 
       {/* Bottom bar */}
-      <div className="max-w-6xl mx-auto flex flex-col sm:flex-row justify-between items-center border-t border-[#FFD6E0] pt-6 mt-8">
-        <p className="text-[#FFF8F0] text-sm mb-4 sm:mb-0">
-          &copy;DesignThemes all rights Reserved
-        </p>
-        <div className="flex gap-3">
-          {/* Payment method icons (replace with real icons as needed) */}
+      <div className="flex flex-col justify-center items-center border-t border-[#FFD6E0] pt-4 mt-6 gap-2 text-[11px]">
+        <p className="text-center">&copy;DesignThemes all rights Reserved</p>
+        <div className="flex gap-2 justify-center">
+          {/* Payment method icons */}
           <img
             src="https://upload.wikimedia.org/wikipedia/commons/0/04/Mastercard-logo.png"
             alt="Mastercard"
-            className="h-6"
+            className="h-4"
           />
           <img
             src="https://upload.wikimedia.org/wikipedia/commons/4/41/Visa_Logo.png"
             alt="Visa"
-            className="h-6"
+            className="h-4"
           />
           <img
             src="https://cdn.iconscout.com/icon/free/png-256/apple-pay-27-434158.png"
             alt="Apple Pay"
-            className="h-6"
+            className="h-4"
           />
           <img
             src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg"
             alt="PayPal"
-            className="h-6"
+            className="h-4"
           />
         </div>
       </div>
-    </footer>
+    </div>
   );
 }

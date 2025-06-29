@@ -18,6 +18,7 @@ import ProtectedRoute from "./components/Common/ProtectedRoute";
 import Feed from "./pages/Feed";
 import CreateProfile from "./pages/CreateProfile";
 import BottomNav from "./components/BottomNav/BottomNav";
+// import Footer from "./components/Common/Footer";
 
 // log in check function
 const isLoggedIn = () => localStorage.getItem("isLoggedIn") === "true";
@@ -36,8 +37,13 @@ function AppLayout() {
     "/createprofile",
   ];
 
-  // Hide Navbar if path matches any noNavbarRoute
+  //  bottom nav should be hidden
+  const hideBottomNavRoutes = ["/", "/login", "/register","/editprofile", "/createprofile"];
+
+  // Lowercase for matching
   const pathLower = location.pathname.toLowerCase();
+
+  // Hide Navbar if path matches any noNavbarRoute
   const hideNavbar = noNavbarRoutes.some(
     (r) =>
       pathLower === r ||
@@ -46,8 +52,10 @@ function AppLayout() {
         : pathLower.startsWith(r + "/"))
   );
 
-  // Hide BottomNav only on /chat/:id (not /chat itself)
-  const hideBottomNav = /^\/chat\/[^/]+$/.test(pathLower);
+  // Hide BottomNav on /chat/:id, home, login, register
+  const hideBottomNav =
+    /^\/chat\/[^/]+$/.test(pathLower) ||
+    hideBottomNavRoutes.includes(pathLower);
 
   return (
     <div className="relative min-h-screen flex items-center justify-center bg-gray-400">
@@ -131,6 +139,7 @@ function AppLayout() {
               }
             />
             <Route path="/createprofile" element={<CreateProfile />} />
+            {/* <Route path="/footer" element={<Footer />} /> */}
             <Route
               path="/editprofile"
               element={
@@ -144,7 +153,7 @@ function AppLayout() {
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </div>
-        {/* Bottom Navigation (hide on /chat/:id) */}
+        {/* Bottom Navigation (hide on chat/:id, home, login, register) */}
         {!hideBottomNav && <BottomNav />}
       </div>
     </div>
