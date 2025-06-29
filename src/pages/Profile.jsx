@@ -1,5 +1,6 @@
 import React, { useRef, useState } from "react";
-import { FiCamera, FiSettings } from "react-icons/fi";
+import { FiCamera,  } from "react-icons/fi";
+import SettingsDropdown from "../components/Common/SettingsDropdown";
 
 // Utility to get profile from localStorage
 function getProfile() {
@@ -61,7 +62,7 @@ export default function Profile() {
           My Profile
         </span>
         <button className="rounded-full border border-gray-200 w-11 h-11 flex items-center justify-center text-[#FF3366] hover:bg-pink-50 transition   text-2xl bg-white shadow-md">
-          <FiSettings />
+          <SettingsDropdown />
         </button>
       </div>
 

@@ -2,7 +2,6 @@ import React, { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaHeart, FaTimes, FaUndoAlt, FaStar } from "react-icons/fa";
 import { HiOutlineLocationMarker } from "react-icons/hi";
-import { FiSettings } from "react-icons/fi";
 import { IoChevronBack } from "react-icons/io5";
 
 // Dummy images (your existing profile images)
@@ -12,6 +11,7 @@ import profile3 from "../assets/profile3.jpeg";
 import profile4 from "../assets/profile4.jpeg";
 import profile5 from "../assets/profile5.jpeg";
 import BottomNav from "../components/BottomNav/BottomNav";
+import SettingsDropdown from "../components/Common/SettingsDropdown";
 
 const profiles = [
   {
@@ -183,7 +183,7 @@ export default function Feed() {
           <span className="text-gray-400 text-xs -mt-1">nepal</span>
         </div>
         <button className="rounded-full border border-gray-200 w-11 h-11 flex items-center justify-center text-[#FF3366] hover:bg-pink-50 transition  text-2xl bg-white shadow-md">
-          <FiSettings />
+          <SettingsDropdown />
         </button>
       </div>
       {/* CARD SWIPE AREA */}

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { FiSettings } from "react-icons/fi";
+import SettingsDropdown from "./Common/SettingsDropdown";
+import { FiSearch } from "react-icons/fi";
 
 export default function UserList({ users, selectedUserId, onSelect }) {
   const [search, setSearch] = useState("");
@@ -11,7 +12,7 @@ export default function UserList({ users, selectedUserId, onSelect }) {
   // Activities bar
   const activities = [
     { name: "You", photo: users[0]?.photo },
-    ...users.slice(1, 5), // show 4 more as example
+    ...users.slice(1, 5),
   ];
 
   return (
@@ -20,19 +21,24 @@ export default function UserList({ users, selectedUserId, onSelect }) {
       <div className="flex items-center justify-between px-6 pt-8 pb-1 ">
         <div className="text-3xl font-extrabold tracking-tight">Messages</div>
         <button className="rounded-full border border-gray-200 w-11 h-11 flex items-center justify-center text-[#FF3366] hover:bg-pink-50 transition text-2xl bg-white shadow-md">
-          <FiSettings />
+          <SettingsDropdown />
         </button>
       </div>
 
       {/* Search box */}
       <div className="px-6 pb-3 my-5">
-        <input
-          type="text"
-          className="w-full rounded-xl px-4 py-2 border border-gray-100 focus:ring-2 focus:ring-pink-200 bg-gray-50"
-          placeholder="Search"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
+        <div className="relative">
+          <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
+            <FiSearch className="text-xl" />
+          </span>
+          <input
+            type="text"
+            className="w-full rounded-xl pl-10 pr-4 py-2 border border-gray-100 focus:ring-2 focus:ring-pink-200 bg-gray-50"
+            placeholder="Search"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        </div>
       </div>
 
       {/* Activities (like stories) */}

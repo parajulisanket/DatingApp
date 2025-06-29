@@ -22,7 +22,7 @@ export default function Login() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col justify-center items-center  px-4">
+    <div className="flex flex-col justify-center items-center  px-4 my-36">
       <h2 className="text-3xl font-medium text-center mb-8 text-[#EA4156]">
         Log In
       </h2>

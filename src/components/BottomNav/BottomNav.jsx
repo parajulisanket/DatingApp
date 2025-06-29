@@ -25,7 +25,7 @@ export default function BottomNav() {
           className={active("/feed") ? "text-[#FF3A5C]" : "text-gray-400"}
         />
         {active("/feed") && (
-          <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 rounded-full bg-[#FF3A5C]" />
+          <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 rounded-full bg-[#FF3A5C] " />
         )}
       </Link>
 

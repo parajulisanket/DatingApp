@@ -154,8 +154,8 @@ export default function CreateProfile() {
           <div className="flex flex-col items-center w-full mb-5">
             <div className="relative w-28 h-28">
               <img
-                src={photoPreview || "https://api.dicebear.com/7.x/person/svg"}
-                alt="Profile"
+                src={photoPreview || ""}
+                alt=""
                 className="rounded-full w-28 h-28 object-cover border-4 border-[#EA4156]"
               />
               <label
@@ -208,7 +208,7 @@ export default function CreateProfile() {
             I am a
           </h1>
           <div className="flex flex-col gap-4 w-full">
-            {["Woman", "Man", "Other"].map((opt) => (
+            {["Man", "Woman", "Other"].map((opt) => (
               <button
                 key={opt}
                 type="button"
@@ -273,7 +273,7 @@ export default function CreateProfile() {
             Looking for
           </h1>
           <div className="flex flex-col gap-4 w-full">
-            {["Woman", "Man", "Other"].map((opt) => (
+            {["Man", "Woman", "Other"].map((opt) => (
               <button
                 key={opt}
                 type="button"

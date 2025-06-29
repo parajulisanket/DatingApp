@@ -13,20 +13,20 @@ import ChatApp from "./pages/ChatApp";
 import Matches from "./pages/Matches";
 import Profile from "./pages/Profile";
 import EditProfile from "./pages/EditProfile";
-// import Navbar from "./components/Common/Navbar";
+import Navbar from "./components/Common/Navbar";
 import ProtectedRoute from "./components/Common/ProtectedRoute";
 import Feed from "./pages/Feed";
 import CreateProfile from "./pages/CreateProfile";
 import BottomNav from "./components/BottomNav/BottomNav";
 
-// Helper function to check login
-const isLoggedIn = () => localStorage.getItem("isLoggedIn") === "false";
+// log in check function
+const isLoggedIn = () => localStorage.getItem("isLoggedIn") === "true";
 
-// Layout component for global navbar control
+// Layout for the mobile-mockup view
 function AppLayout() {
   const location = useLocation();
 
-  // Top Navbar logic
+  // List of routes where navbar should be hidden
   const noNavbarRoutes = [
     "/feed",
     "/profile",
@@ -35,27 +35,37 @@ function AppLayout() {
     "/editprofile",
     "/createprofile",
   ];
-  const hideNavbar = noNavbarRoutes.includes(location.pathname);
 
-  // Hide BottomNav on /chat/:id (but NOT on /chat)
-  const hideBottomNav = /^\/chat\/[^/]+$/.test(location.pathname);
+  // Hide Navbar if path matches any noNavbarRoute
+  const pathLower = location.pathname.toLowerCase();
+  const hideNavbar = noNavbarRoutes.some(
+    (r) =>
+      pathLower === r ||
+      (r.endsWith("/")
+        ? pathLower.startsWith(r)
+        : pathLower.startsWith(r + "/"))
+  );
+
+  // Hide BottomNav only on /chat/:id (not /chat itself)
+  const hideBottomNav = /^\/chat\/[^/]+$/.test(pathLower);
 
   return (
     <div className="relative min-h-screen flex items-center justify-center bg-gray-400">
-      {/* Centered Mobile Mockup */}
+      {/* Mobile-mockup container */}
       <div
         className="
           w-full h-full min-h-screen
           md:w-[375px] md:h-[812px]  
           md:rounded-[2.5rem] 
           bg-white overflow-hidden flex flex-col relative
+          shadow-xl
           transition-all duration-300
         "
       >
-        {/* Navbar */}
-        {/* {!hideNavbar && <Navbar />} */}
+        {/*  show navbar on public landing, login, register pages */}
+        {!hideNavbar && <Navbar />}
 
-        {/* Main app content (routes) */}
+        {/* Main content area */}
         <div className="flex-1 overflow-y-auto">
           <Routes>
             {/* Public Routes */}
@@ -134,7 +144,7 @@ function AppLayout() {
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </div>
-        {/* Bottom Navigation */}
+        {/* Bottom Navigation (hide on /chat/:id) */}
         {!hideBottomNav && <BottomNav />}
       </div>
     </div>

@@ -405,7 +405,7 @@ export default function EditProfile() {
                 </h2>
                 <textarea
                   placeholder="Short Bio"
-                  className="rounded-2xl px-4 py-3 bg-[#FFF8F0] w-full resize-none my-6"
+                  className="rounded-2xl px-4 py-3 border w-full resize-none my-6"
                   rows={2}
                   value={bio}
                   onChange={(e) => setBio(e.target.value)}

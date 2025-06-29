@@ -31,7 +31,8 @@ export default function Register() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center  px-4 font-[Inter]">
+    // THIS IS THE KEY:
+    <div className="flex-1 flex flex-col items-center justify-center px-4 bg-white font-[Inter] my-36">
       <h2 className="text-3xl font-medium text-center mb-8 text-[#EA4156] tracking-wide mt-2">
         Create your account
       </h2>

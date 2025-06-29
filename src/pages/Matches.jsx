@@ -1,6 +1,5 @@
 import React from "react";
 import BottomNav from "../components/BottomNav/BottomNav";
-import { FiSettings } from "react-icons/fi";
 import kylie from "../assets/kylie.jpg";
 // import annabelle from "../assets/annabelle.jpg";
 import profile1 from "../assets/profile1.jpeg";
@@ -8,6 +7,7 @@ import profile2 from "../assets/profile2.jpeg";
 import profile3 from "../assets/profile3.jpeg";
 import profile4 from "../assets/profile4.jpeg";
 import profile5 from "../assets/profile5.jpeg";
+import SettingsDropdown from "../components/Common/SettingsDropdown";
 
 // Today/Yesterday data (update as needed)
 const todayMatches = [
@@ -29,7 +29,7 @@ export default function Matches() {
       <div className="flex items-center justify-between px-6 pt-10 pb-3">
         <h1 className="text-3xl font-black text-black ">Matches</h1>
         <button className="rounded-full border border-gray-200 w-11 h-11 flex items-center justify-center text-[#FF3366] hover:bg-pink-50 transition  text-2xl bg-white shadow-md">
-          <FiSettings />
+          <SettingsDropdown />
         </button>
       </div>
       <p className="text-gray-500 text-base mt-2 m-6">
