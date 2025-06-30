@@ -191,7 +191,7 @@ export default function EditProfile() {
 
   return (
     <div className="min-h-screen flex justify-center items-center bg-[#a7aab2]">
-      <div className="relative w-full max-w-md bg-white min-h-screen mx-auto flex flex-col shadow-lg">
+      <div className="relative w-full max-w-md bg-white mx-auto flex flex-col shadow-lg min-h-screen overflow-y-auto">
         {/* Header - inside mobile card only */}
         <StepHeader />
 
@@ -314,7 +314,8 @@ export default function EditProfile() {
                       className={
                         interests.includes(item)
                           ? chip + " bg-[#EA4156] text-white"
-                          : chip + "text-gray-700 border border-gray-300 bg-white "
+                          : chip +
+                            "text-gray-700 border border-gray-300 bg-white "
                       }
                       onClick={() => handleInterestToggle(item)}
                     >
@@ -473,14 +474,17 @@ export default function EditProfile() {
                     ))}
                   </div>
                 </div>
-                <button className={mainBtn + " mt-6"} type="submit">
+                <button
+                  className={mainBtn + " mt-6"}
+                  type="submit"
+                  style={{ zIndex: 999, position: "relative" }}
+                >
                   Save Changes
                 </button>
               </>
             )}
           </form>
         </main>
-
       </div>
     </div>
   );
