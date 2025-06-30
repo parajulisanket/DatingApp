@@ -107,13 +107,15 @@ export default function CreateProfile() {
     "bg-[#EA4156] text-white font-bold w-full rounded-full py-4 text-lg shadow-lg hover:brightness-105 transition";
   const input =
     "w-full rounded-full border border-[#eee] px-6 py-4 text-lg bg-gray-200 text-[#22223B] placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#FF3366] mb-4";
-  const formWrap = "w-full max-w-xs flex flex-col items-center px-2 pt-[70px]"; 
+  const formWrap = "w-full max-w-xs flex flex-col items-center px-2 pt-[70px]";
 
   // Header bar for each step
   function StepHeader({ showBack = true, showSkip = true }) {
     return (
-      <div className="fixed top-0 left-0 w-full max-w-xs flex items-center justify-between py-10 bg-white z-30  rounded-t-2xl"
-           style={{ margin: "0 auto", right: 0 }}>
+      <div
+        className="fixed top-0 left-0 w-full max-w-xs flex items-center justify-between py-10 bg-white z-30  rounded-t-2xl"
+        style={{ margin: "0 auto", right: 0 }}
+      >
         {showBack ? (
           <button
             type="button"

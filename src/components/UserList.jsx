@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import SettingsDropdown from "./Common/SettingsDropdown";
-import { FiSearch } from "react-icons/fi";
+import { FiSearch, FiArrowLeft } from "react-icons/fi";
+import BottomNav from "./BottomNav/BottomNav";
+import { useNavigate } from "react-router-dom";
 
 export default function UserList({ users, selectedUserId, onSelect }) {
   const [search, setSearch] = useState("");
@@ -8,21 +10,31 @@ export default function UserList({ users, selectedUserId, onSelect }) {
   const filtered = users.filter((u) =>
     u.name.toLowerCase().includes(search.toLowerCase())
   );
+  const navigate = useNavigate();
 
   // Activities bar
   const activities = [
-    { name: "You", photo: users[0]?.photo },
+    { name: users[0]?.name, photo: users[0]?.photo },
     ...users.slice(1, 5),
   ];
-
   return (
     <div className="flex-1 flex flex-col w-full h-full relative example">
       {/* Header with settings */}
-      <div className="flex items-center justify-between px-6 pt-8 pb-1 ">
-        <div className="text-3xl font-extrabold tracking-tight">Messages</div>
-        <button className="rounded-full border border-gray-200 w-11 h-11 flex items-center justify-center text-[#FF3366] hover:bg-pink-50 transition text-2xl bg-white shadow-md">
-          <SettingsDropdown />
+      <div className="flex items-center justify-between px-6 pt-8 pb-1">
+        {/* Back Arrow */}
+        <button
+          className="w-11 h-11 flex items-center justify-center text-[#FF3366] text-3xl bg-white"
+          onClick={() => navigate(-1)}
+          aria-label="Go Back"
+        >
+          <FiArrowLeft />
         </button>
+        {/* Centered Title */}
+        <div className="flex-1 text-3xl text-gray-700 font-bold tracking-tight text-center">
+          Messages
+        </div>
+        {/* Settings */}
+          <SettingsDropdown />
       </div>
 
       {/* Search box */}
@@ -41,7 +53,7 @@ export default function UserList({ users, selectedUserId, onSelect }) {
         </div>
       </div>
 
-      {/* Activities (like stories) */}
+      {/* Activities*/}
       <div className="flex gap-4 px-6 pb-3 overflow-x-auto">
         {activities.map((a, idx) => (
           <div key={idx} className="flex flex-col items-center">
@@ -113,6 +125,7 @@ export default function UserList({ users, selectedUserId, onSelect }) {
           ))}
         </div>
       </div>
+      <BottomNav />
     </div>
   );
 }

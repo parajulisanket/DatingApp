@@ -7,8 +7,9 @@ import profile3 from "../assets/profile3.jpeg";
 import profile4 from "../assets/profile4.jpeg";
 import profile5 from "../assets/profile5.jpeg";
 import SettingsDropdown from "../components/Common/SettingsDropdown";
+import { useNavigate } from "react-router-dom";
+import { FiArrowLeft } from "react-icons/fi";
 
-// Today/Yesterday data (update as needed)
 const todayMatches = [
   { id: 1, name: "Leilani", age: 19, photo: kylie },
   { id: 2, name: "Annabelle", age: 20, photo: profile3 },
@@ -22,21 +23,30 @@ const yesterdayMatches = [
 ];
 
 export default function Matches() {
+  const navigate = useNavigate();
   return (
-    <div className="w-full h-full min-h-screen md:w-[375px] md:h-[812px] md:rounded-[2rem] md:shadow-2xl bg-[#fafafd] overflow-hidden flex flex-col relative ">
-      {/* Header */}
+    <div className="w-full h-full min-h-screen md:w-[375px] md:h-[812px] md:rounded-[2rem] md:shadow-2xl overflow-hidden flex flex-col relative ">
       <div className="flex items-center justify-between px-6 pt-10 pb-3">
-        <h1 className="text-3xl font-black text-black ">Matches</h1>
-        <button className="rounded-full border border-gray-200 w-11 h-11 flex items-center justify-center text-[#FF3366] hover:bg-pink-50 transition  text-2xl bg-white shadow-md">
-          <SettingsDropdown />
+        {/* Back Arrow */}
+        <button
+          className=" w-11 h-11 flex items-center justify-center text-[#FF3366]  text-3xl bg-white "
+          onClick={() => navigate(-1)}
+          aria-label="Go Back"
+        >
+          <FiArrowLeft />
         </button>
+        <h1 className="flex-1 text-3xl font-bold text-gray-700 text-center">
+          Matches
+        </h1>
+        <SettingsDropdown />
       </div>
+
       <p className="text-gray-500 text-base mt-2 m-6">
         This is a list of people who have liked you and your matches.
       </p>
 
       <div className="flex-1 w-full overflow-y-auto pb-24 example">
-        {/* Today */}
+        {/* today match card*/}
         <div className="w-full px-5 mb-6">
           <div className="flex items-center gap-2 mb-3">
             <div className="flex-1 h-px bg-gray-200" />
@@ -73,7 +83,7 @@ export default function Matches() {
             ))}
           </div>
         </div>
-        {/* Yesterday */}
+        {/* yesterday match card */}
         <div className="w-full px-5 mb-4">
           <div className="flex items-center gap-2 mb-3">
             <div className="flex-1 h-px bg-gray-200" />
@@ -111,7 +121,7 @@ export default function Matches() {
           </div>
         </div>
       </div>
-      {/* Bottom Nav */}
+      {/* bottom nav */}
       <BottomNav />
     </div>
   );

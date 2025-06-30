@@ -7,9 +7,9 @@ import {
 } from "framer-motion";
 import { FaHeart, FaTimes, FaStar } from "react-icons/fa";
 import { HiOutlineLocationMarker } from "react-icons/hi";
-import { IoChevronBack } from "react-icons/io5";
-
-// Dummy images (your existing profile images)
+import { FiArrowLeft } from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
+// dummy images
 import profile1 from "../assets/profile1.jpeg";
 import profile2 from "../assets/profile2.jpeg";
 import profile3 from "../assets/profile3.jpeg";
@@ -18,7 +18,8 @@ import profile5 from "../assets/profile5.jpeg";
 import BottomNav from "../components/BottomNav/BottomNav";
 import SettingsDropdown from "../components/Common/SettingsDropdown";
 
-const profiles = [
+// Profiles array should match the ProfileDetail data!
+export const profiles = [
   {
     id: 1,
     name: "Rihanna",
@@ -67,7 +68,14 @@ const profiles = [
 ];
 
 // Main Tinder Card
-function TinderCard({ profile, drag, onDragEnd, swipe, swipeIcon }) {
+function TinderCard({
+  profile,
+  drag,
+  onDragEnd,
+  swipe,
+  swipeIcon,
+  onNameClick,
+}) {
   const x = useMotionValue(0);
   const rotate = useTransform(x, [-340, 0, 340], [-24, 0, 24]);
 
@@ -104,7 +112,7 @@ function TinderCard({ profile, drag, onDragEnd, swipe, swipeIcon }) {
           {profile.distance}
         </span>
       </div>
-      {/* Carousel Dots (vertical, right) */}
+      {/* Carousel Dots */}
       <div className="absolute right-3 top-1/2 -translate-y-1/2 z-20 flex flex-col gap-1">
         <span className="block w-2 h-2 bg-gray-300 rounded-full opacity-60"></span>
         <span className="block w-2 h-4 bg-gray-600 rounded-full opacity-100"></span>
@@ -115,7 +123,10 @@ function TinderCard({ profile, drag, onDragEnd, swipe, swipeIcon }) {
         <div className="relative w-full h-24">
           <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
           <div className="absolute bottom-3 left-5">
-            <h2 className="text-white text-xl font-semibold mb-1 drop-shadow-md">
+            <h2
+              className="text-white text-xl font-semibold mb-1 drop-shadow-md cursor-pointer hover:text-[#FF3366]"
+              onClick={onNameClick}
+            >
               {profile.name}, {profile.age}
             </h2>
             <p className="text-white/90 text-sm font-normal">{profile.bio}</p>
@@ -170,31 +181,31 @@ export default function Feed() {
     }, 380);
   };
 
-  // const handleRewind = () => {
-  //   if (isAnimating.current || cardIndex === 0) return;
-  //   setCardIndex((i) => Math.max(i - 1, 0));
-  // };
-
+  const navigate = useNavigate();
   const topProfile = profiles[cardIndex];
 
   return (
-    <div className="w-full min-h-screen  flex flex-col items-center justify-between px-0 pt-10 pb-20">
+    <div className="w-full min-h-screen flex flex-col items-center justify-between px-0 pt-10 pb-20">
       {/* HEADER */}
       <div className="w-full max-w-[420px] flex items-center justify-between px-4 pt-2 pb-2 mx-auto">
-        <button className="rounded-full border border-gray-200 w-11 h-11 flex items-center justify-center text-gray-400 text-2xl bg-white shadow-md">
-          <IoChevronBack />
+        {/* Back Arrow */}
+        <button
+          className=" w-11 h-11 flex items-center justify-center text-[#FF3366]  text-3xl bg-white"
+          onClick={() => navigate(-1)}
+          aria-label="Go Back"
+        >
+          <FiArrowLeft />
         </button>
         <div className="flex flex-col items-center gap-0.5">
-          <div className="text-black font-bold text-2xl leading-none">
+          <div className="text-gray-700 font-bold text-3xl leading-none">
             Discover
           </div>
           <span className="text-gray-400 text-xs -mt-1">nepal</span>
         </div>
-        <button className="rounded-full border border-gray-200 w-11 h-11 flex items-center justify-center text-[#FF3366] hover:bg-pink-50 transition  text-2xl bg-white shadow-md">
-          <SettingsDropdown />
-        </button>
+        <SettingsDropdown />
       </div>
-      {/* CARD SWIPE AREA */}
+
+      {/* card swipe area */}
       <main className="flex flex-col items-center w-full flex-1 justify-center px-0">
         <div className="relative w-[340px] h-[410px] mt-2 mb-5">
           <AnimatePresence>
@@ -206,6 +217,7 @@ export default function Feed() {
                 onDragEnd={handleDragEnd}
                 swipe={swipe}
                 swipeIcon={swipeIcon}
+                onNameClick={() => navigate(`/profile/${topProfile.id}`)}
               />
             )}
             {!topProfile && (
@@ -222,7 +234,7 @@ export default function Feed() {
           </AnimatePresence>
         </div>
       </main>
-      {/* SWIPE BUTTONS */}
+      {/* swipe btn */}
       <div className="flex justify-evenly items-center gap-7 mb-10  ">
         <button
           className="bg-white w-20 h-20 rounded-full flex items-center justify-center text-orange-400 text-3xl shadow-xl transition"

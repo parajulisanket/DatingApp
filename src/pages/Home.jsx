@@ -1,10 +1,9 @@
 import React from "react";
-import background_main from "../assets/background_main.png"; 
-
+import background_main from "../assets/background_main.png";
 
 export default function Home() {
   return (
-    <div className="relative min-h-screen flex flex-col bg-black/50">
+    <div className="relative min-h-screen flex flex-col bg-black/50 ">
       {/* Background Image */}
       <div className="absolute inset-0 z-10">
         <img

@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
-import { FiCamera,  } from "react-icons/fi";
+import { FiCamera, FiMapPin, FiArrowLeft } from "react-icons/fi";
 import SettingsDropdown from "../components/Common/SettingsDropdown";
+import { useNavigate } from "react-router-dom";
 
 // Utility to get profile from localStorage
 function getProfile() {
@@ -54,16 +55,24 @@ export default function Profile() {
   //   window.location.href = "/settings";
   // }
 
+  const navigate = useNavigate();
+
   return (
     <div className="w-full min-h-screen flex flex-col items-center relative bg-white">
       {/* Header */}
       <div className="w-full flex items-center justify-between px-6 py-10 absolute top-0 left-0 z-20">
-        <span className="text-3xl font-bold text-black tracking-wide">
-          My Profile
-        </span>
-        <button className="rounded-full border border-gray-200 w-11 h-11 flex items-center justify-center text-[#FF3366] hover:bg-pink-50 transition   text-2xl bg-white shadow-md">
-          <SettingsDropdown />
+        {/* Back Arrow */}
+        <button
+          className=" w-11 h-11 flex items-center justify-left text-[#FF3366] text-3xl bg-white"
+          onClick={() => navigate(-1)}
+          aria-label="Go Back"
+        >
+          <FiArrowLeft />
         </button>
+        <span className="text-3xl font-bold text-gray-600 tracking-wide">
+          Profile
+        </span>
+        <SettingsDropdown />
       </div>
 
       <div className="w-full flex flex-col items-center px-5 py-24 ">
@@ -102,29 +111,30 @@ export default function Profile() {
               , {user.age}
             </span>
           )}
-          <div className="text-[#EA4156] text-base font-medium mt-1">
+          <div className="text-gray-400 text-sm  my-1 flex items-center gap-1">
+            <FiMapPin className="inline-block" size={14} />
             {user.location}
           </div>
         </div>
         {/* Zodiac, Gender, Looking for */}
         <div className="flex justify-center gap-3 mt-2">
           {user.zodiac && (
-            <span className="bg-[#FFF0F4] text-[#EA4156] px-3 py-1 rounded-full text-xs font-semibold">
+            <span className="bg-[#FFF0F4] text-[#EA4156] px-3 py-1 rounded-full text-xs font-medium">
               {user.zodiac}
             </span>
           )}
           {user.gender && (
-            <span className="bg-[#FDE8EA] text-[#22223B] px-3 py-1 rounded-full text-xs font-medium">
-              {user.gender === "M"
-                ? "Man"
-                : user.gender === "F"
-                ? "Woman"
-                : user.gender}
+            <span className="bg-pink-100 text-[#EA4156] px-3 py-1 rounded-full text-xs font-medium">
+              {user.gender}
             </span>
           )}
           {user.lookingFor && (
             <span className="bg-[#E4F1FB] text-[#22223B] px-3 py-1 rounded-full text-xs font-medium">
-              Looking for {user.lookingFor}
+              {user.lookingFor === "M"
+                ? "Looking for Male"
+                : user.lookingFor === "F"
+                ? "Looking for Female"
+                : `Looking for ${user.lookingFor}`}
             </span>
           )}
         </div>

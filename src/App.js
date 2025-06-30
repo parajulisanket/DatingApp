@@ -15,10 +15,10 @@ import Profile from "./pages/Profile";
 import EditProfile from "./pages/EditProfile";
 import Navbar from "./components/Common/Navbar";
 import ProtectedRoute from "./components/Common/ProtectedRoute";
-import Feed from "./pages/Feed";
+import Feed, { profiles } from "./pages/Feed";
+import ProfileDetail from "./pages/ProfileDetail";
 import CreateProfile from "./pages/CreateProfile";
 import BottomNav from "./components/BottomNav/BottomNav";
-// import Footer from "./components/Common/Footer";
 
 // log in check function
 const isLoggedIn = () => localStorage.getItem("isLoggedIn") === "true";
@@ -38,7 +38,14 @@ function AppLayout() {
   ];
 
   //  bottom nav should be hidden
-  const hideBottomNavRoutes = ["/", "/login", "/register","/editprofile", "/createprofile"];
+  const hideBottomNavRoutes = [
+    "/",
+    "/login",
+    "/register",
+    "/editprofile",
+    "/createprofile",
+    "/chat",
+  ];
 
   // Lowercase for matching
   const pathLower = location.pathname.toLowerCase();
@@ -135,6 +142,15 @@ function AppLayout() {
               element={
                 <ProtectedRoute>
                   <Profile />
+                </ProtectedRoute>
+              }
+            />
+            {/* Profile detail page for swiped users */}
+            <Route
+              path="/profile/:id"
+              element={
+                <ProtectedRoute>
+                  <ProfileDetail profiles={profiles} />
                 </ProtectedRoute>
               }
             />

@@ -41,14 +41,14 @@ export default function SettingsDropdown() {
       {open && (
         <div className="text-lg absolute right-0 mt-2 w-44 bg-white rounded-xl shadow-lg py-2 z-50 animate-fade-in">
           <button
-            className="w-full text-left px-4 py-2 text-gray-600 hover:bg-pink-50/50 flex items-center gap-2"
+            className="w-full text-left px-4 py-2 text-gray-500 hover:bg-pink-50/50 flex items-center gap-2"
             onClick={handleAddAccount}
           >
             <FiUserPlus className="text-xl" />
             Add Account
           </button>
           <button
-            className="w-full text-left px-4 py-2 text-gray-600 hover:bg-pink-50/50 flex items-center gap-2"
+            className="w-full text-left px-4 py-2 text-gray-500 hover:bg-pink-50/50 flex items-center gap-2"
             onClick={handleLogout}
           >
             <FiLogOut className="text-xl" />

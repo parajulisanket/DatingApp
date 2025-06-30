@@ -10,12 +10,8 @@ export default function Chat({ user, onSendMessage, onBack }) {
   const [input, setInput] = useState("");
   const inputRef = useRef();
 
-  // Estimate heights (in px)
-  const INPUT_BAR_HEIGHT = 72; 
-  const BOTTOM_NAV_HEIGHT = 75; 
-  // const TOTAL_BOTTOM = INPUT_BAR_HEIGHT + BOTTOM_NAV_HEIGHT;
-
-
+  // Height in px for padding (input bar height)
+  const INPUT_BAR_HEIGHT = 72;
 
   // Send text message
   const sendMessage = (e) => {
@@ -42,7 +38,7 @@ export default function Chat({ user, onSendMessage, onBack }) {
         >
           <FaChevronLeft size={26} />
         </button>
-        {/* Avatar, name, status - centered */}
+        {/* Avatar, name, status */}
         <div className="flex flex-1 flex-col items-center justify-center min-w-0">
           <div className="flex items-center gap-3">
             <img
@@ -81,7 +77,7 @@ export default function Chat({ user, onSendMessage, onBack }) {
       >
         {/* Date separator */}
         <div className="flex items-center justify-center my-2">
-          <span className="text-gray-300 text-xs px-3 py-0.5 bg-gray-50 rounded-full">
+          <span className="text-gray-400 text-xs px-3 py-0.5 bg-gray-100 rounded-full">
             Today
           </span>
         </div>
@@ -109,16 +105,15 @@ export default function Chat({ user, onSendMessage, onBack }) {
         ))}
       </div>
 
-      {/* Input bar - always above BottomNav */}
+      {/* Input bar - fixed at bottom for mobile, absolute for md+ */}
       <form
         onSubmit={sendMessage}
-        className="w-full px-4 py-3 flex items-center gap-2 bg-white border-t border-gray-100"
+        className={`
+          w-full p-5 flex items-center gap-2 bg-white border-t border-gray-100
+          fixed bottom-0 left-0 right-0 z-10
+          md:absolute md:bottom-0 md:left-0 md:right-0
+        `}
         style={{
-          position: "absolute",
-          left: 0,
-          right: 0,
-          bottom: `${BOTTOM_NAV_HEIGHT}px`,
-          zIndex: 10,
           borderBottomLeftRadius: "32px",
           borderBottomRightRadius: "32px",
           minHeight: `${INPUT_BAR_HEIGHT}px`,
@@ -141,7 +136,7 @@ export default function Chat({ user, onSendMessage, onBack }) {
         </button>
         <button
           type="submit"
-          className="ml-2 p-2 bg-pink-500 rounded-full text-white flex items-center justify-center hover:bg-pink-600"
+          className="ml-2 p-2 bg-[#FF3366] rounded-full text-white flex items-center justify-center hover:bg-pink-600"
           aria-label="Send"
         >
           <FaPaperPlane size={20} />
