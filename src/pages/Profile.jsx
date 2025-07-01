@@ -86,8 +86,8 @@ export default function Profile() {
   //   : [];
 
   // Gallery
-  const gallery =
-    user.photos && user.photos.length > 1 ? user.photos.slice(1) : [];
+  // const gallery =
+  //   user.photos && user.photos.length > 1 ? user.photos.slice(1) : [];
 
   const navigate = useNavigate();
 
