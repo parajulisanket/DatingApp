@@ -79,11 +79,11 @@ export default function Profile() {
   }
 
   // Show interests as chips
-  const interestChips = user.interests
-    ? typeof user.interests === "string"
-      ? user.interests.split(",").map((x) => x.trim())
-      : user.interests
-    : [];
+  // const interestChips = user.interests
+  //   ? typeof user.interests === "string"
+  //     ? user.interests.split(",").map((x) => x.trim())
+  //     : user.interests
+  //   : [];
 
   // Gallery
   const gallery =
