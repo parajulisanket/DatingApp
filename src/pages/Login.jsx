@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 // import Footer from "../components/Common/Footer";
 
-const DEMO_EMAIL = "demo@example.com";
+const DEMO_EMAIL = "demo@email.com";
 const DEMO_PASSWORD = "password123";
 
 export default function Login() {
@@ -61,7 +61,7 @@ export default function Login() {
       </form>
       <div className="mt-6 text-center text-[#7A7A7A] text-[15px]">
         Try{" "}
-        <span className="font-semibold text-[#22223B]">demo@example.com</span>
+        <span className="font-semibold text-[#22223B]">demo@email.com</span>
         {" / "}
         <span className="font-semibold text-[#22223B]">password123</span>
       </div>

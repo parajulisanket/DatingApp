@@ -17,9 +17,27 @@ const INTERESTS = [
   "Music",
   "Drink",
   "Video games",
+  "Dancing",
+  "Singing",
 ];
 const GENDERS = ["M", "F", "Other"];
 const LOOKING_FOR = ["M", "F", "Other"];
+const RELATIONSHIP_GOALS = [
+  "Long-term partner",
+  "Dating only",
+  "Looking for marriage",
+];
+const SEXUAL_ORIENTATION = [
+  "Straight",
+  "Gay",
+  "Lesbian",
+  "Bisexual",
+  "Asexual",
+  "Demisexual",
+  "Pansexual",
+  "Queer",
+  "Questioning",
+];
 
 function getProfile() {
   try {
@@ -32,31 +50,36 @@ function getProfile() {
 export default function EditProfile() {
   const navigate = useNavigate();
   const profile = getProfile();
-  const [step, setStep] = useState(1);
 
-  // Prefilled state
+  // States
+  const [mainPhoto, setMainPhoto] = useState(profile.photos?.[0] || "");
+  const [photoPreviews, setPhotoPreviews] = useState(
+    profile.photos || Array(5).fill(null)
+  );
   const [firstName, setFirstName] = useState(profile.firstName || "");
   const [lastName, setLastName] = useState(profile.lastName || "");
   const [dob, setDob] = useState(profile.dob || "");
   const [age, setAge] = useState(profile.age || "");
   const [zodiac, setZodiac] = useState(profile.zodiac || "");
   const [gender, setGender] = useState(profile.gender || "");
-  const [interests, setInterests] = useState(
-    profile.interests
-      ? typeof profile.interests === "string"
-        ? profile.interests.split(",").map((x) => x.trim())
-        : profile.interests
-      : []
-  );
+  const [interests, setInterests] = useState(profile.interests || []);
+  // const [interestInput, setInterestInput] = useState("");
   const [lookingFor, setLookingFor] = useState(profile.lookingFor || "");
   const [bio, setBio] = useState(profile.bio || "");
   const [locationField, setLocationField] = useState(profile.location || "");
   const [email] = useState(profile.email || "");
-  const [photoPreviews, setPhotoPreviews] = useState(profile.photos || []);
-  const [mainPhoto, setMainPhoto] = useState(
-    (profile.photos && profile.photos[0]) || ""
-  );
 
+  // Added fields
+  const [relationshipGoal, setRelationshipGoal] = useState(
+    profile.relationshipGoal || RELATIONSHIP_GOALS[0]
+  );
+  const [showGoalPicker, setShowGoalPicker] = useState(false);
+  const [sexualOrientation, setSexualOrientation] = useState(
+    profile.sexualOrientation || SEXUAL_ORIENTATION[0]
+  );
+  const [showOrientationPicker, setShowOrientationPicker] = useState(false);
+
+  // Birthday, Age, Zodiac
   useEffect(() => {
     if (dob) {
       const birthDate = new Date(dob);
@@ -66,7 +89,6 @@ export default function EditProfile() {
       if (m < 0 || (m === 0 && now.getDate() < birthDate.getDate())) years--;
       setAge(years);
 
-      // Zodiac
       const month = birthDate.getMonth() + 1;
       const day = birthDate.getDate();
       const zodiacCalc = [
@@ -94,6 +116,7 @@ export default function EditProfile() {
     }
   }, [dob]);
 
+  // Handlers
   function handleMainPhoto(e) {
     const file = e.target.files[0];
     if (!file) return;
@@ -117,21 +140,17 @@ export default function EditProfile() {
     };
     reader.readAsDataURL(file);
   }
+  // function handleInterestAdd(e) {
+  //   e.preventDefault();
+  //   if (interestInput.trim() && !interests.includes(interestInput.trim())) {
+  //     setInterests([...interests, interestInput.trim()]);
+  //     setInterestInput("");
+  //   }
+  // }
   function handleInterestToggle(item) {
     setInterests((arr) =>
       arr.includes(item) ? arr.filter((v) => v !== item) : [...arr, item]
     );
-  }
-  function handleNext(e) {
-    e && e.preventDefault();
-    setStep((s) => s + 1);
-  }
-  function handleBack(e) {
-    e && e.preventDefault();
-    setStep((s) => (s > 1 ? s - 1 : 1));
-  }
-  function handleSkip() {
-    setStep((s) => s + 1);
   }
   function handleSave(e) {
     e.preventDefault();
@@ -150,341 +169,344 @@ export default function EditProfile() {
         location: locationField,
         email,
         photos: photoPreviews,
+        relationshipGoal,
+        sexualOrientation,
       })
     );
     navigate("/profile");
   }
 
-  // UI Classes
-  const input =
-    "w-full rounded-2xl border border-[#eee] px-5 py-4 text-base bg-gray-200 placeholder-gray-500 focus:outline-none mb-4";
-  const mainBtn =
-    "bg-[#EA4156] text-white font-bold w-full rounded-2xl py-4 text-base mt-8 shadow-md hover:brightness-105 transition";
-  const chip =
-    "px-4 py-2 rounded-xl text-xs font-thin cursor-pointer  hover:bg-[#EA4156] hover:text-white transition shadow";
-
-  // Responsive header inside card only
-  function StepHeader() {
-    return (
-      <div className="flex items-center justify-between py-10 px-6 w-full">
-        <button
-          type="button"
-          onClick={() => (step === 1 ? navigate("/profile") : handleBack())}
-          className="border border-gray-200 text-[#EA4156] rounded-xl p-2 shadow-md hover:bg-[#f8f8f8] transition"
-          style={{ minWidth: 40, minHeight: 40 }}
-          title="Back"
-        >
-          <FiArrowLeft size={22} />
-        </button>
-        {step !== 7 && (
-          <button
-            type="button"
-            onClick={handleSkip}
-            className="text-[#EA4156] font-medium text-base "
-          >
-            Skip
-          </button>
-        )}
-      </div>
-    );
-  }
-
+  // Render
   return (
-    <div className="min-h-screen flex justify-center items-center bg-[#a7aab2]">
-      <div className="relative w-full max-w-md bg-white mx-auto flex flex-col shadow-lg min-h-screen overflow-y-auto">
-        {/* Header - inside mobile card only */}
-        <StepHeader />
-
-        {/* Main form area */}
-        <main className="flex-1 w-full px-6 pb-4">
-          <form
-            className="w-full flex flex-col items-center"
-            onSubmit={step === 7 ? handleSave : handleNext}
+    <div className="min-h-screen bg-[#f7f7fa] flex justify-center items-center">
+      <div className="relative w-full max-w-md bg-white rounded-3xl mx-auto flex flex-col shadow-xl min-h-screen overflow-y-auto py-2">
+        {/* Header */}
+        <div className="sticky top-0 z-10 bg-white rounded-t-3xl  flex items-center px-4 py-4">
+          <button
+            onClick={() => navigate(-1)}
+            className="mr-20 text-[#EA4156] p-2 rounded-full"
           >
-            {/* STEP 1 */}
-            {step === 1 && (
-              <>
-                <h2 className="text-3xl font-bold mb-5 mt-2 text-[#E63946] w-full text-center">
-                  Main Photo & Info
-                </h2>
-                <div className="flex flex-col items-center w-full my-4">
-                  <div className="relative w-28 h-28 my-4 flex justify-center items-center">
-                    <img
-                      src={mainPhoto}
-                      alt="profile"
-                      className="rounded-full w-28 h-28 object-cover border-4 border-[#FF3366] shadow-lg"
-                    />
-                    <label
-                      htmlFor="main-photo"
-                      className="absolute -bottom-2 -right-2 bg-[#EA4156] rounded-full p-2 cursor-pointer shadow"
-                      title="Change Photo"
-                    >
-                      <FiCamera className="text-white" size={20} />
-                      <input
-                        id="main-photo"
-                        type="file"
-                        accept="image/*"
-                        className="hidden"
-                        onChange={handleMainPhoto}
-                      />
-                    </label>
-                  </div>
-                </div>
-                <div className="flex gap-2 w-full mb-3">
-                  <input
-                    className={input + " mb-0"}
-                    placeholder="First Name"
-                    value={firstName}
-                    onChange={(e) => setFirstName(e.target.value)}
-                    required
-                  />
-                  <input
-                    className={input + " mb-0"}
-                    placeholder="Last Name"
-                    value={lastName}
-                    onChange={(e) => setLastName(e.target.value)}
-                    required
-                  />
-                </div>
+            <FiArrowLeft size={26} />
+          </button>
+          <span className="text-xl font-bold  text-gray-600">Edit Profile</span>
+        </div>
+        <div
+          className="flex flex-col gap-3 px-5 py-2"
+          onSubmit={handleSave}
+          autoComplete="off"
+        >
+          {/* Gallery */}
+          <div className="flex flex-col items-center pt-1">
+            <div className="relative w-28 h-28 flex justify-center items-center">
+              <img
+                src={mainPhoto}
+                alt="profile"
+                className="rounded-full w-28 h-28 object-cover border-4 border-[#FF3366] shadow"
+              />
+              <label
+                htmlFor="main-photo"
+                className="absolute -bottom-2 -right-2 bg-[#EA4156] rounded-full p-2 cursor-pointer shadow"
+                title="Change Photo"
+              >
+                <FiCamera className="text-white" size={20} />
                 <input
-                  type="date"
-                  className={input + " cursor-pointer mb-0"}
-                  value={dob}
-                  onChange={(e) => setDob(e.target.value)}
-                  required
+                  id="main-photo"
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  onChange={handleMainPhoto}
                 />
-                <div className="flex w-full gap-2 mt-3">
-                  <input
-                    className={input + " bg-[#F6F6F6] mb-0"}
-                    value={age ? `Age: ${age}` : ""}
-                    disabled
-                    readOnly
+              </label>
+            </div>
+          </div>
+          <div className="grid grid-cols-3 gap-2 my-4 w-full">
+            {[0, 1, 2, 3, 4].map((idx) => (
+              <label
+                key={idx}
+                className="w-20 h-20 rounded-xl bg-[#FFE6EF] flex items-center justify-center cursor-pointer overflow-hidden border-2 border-dashed border-[#EA4156]"
+              >
+                {photoPreviews[idx] ? (
+                  <img
+                    src={photoPreviews[idx]}
+                    className="object-cover w-full h-full"
+                    alt={`gallery${idx}`}
                   />
-                  <input
-                    className={input + " bg-[#F6F6F6] mb-0 "}
-                    value={zodiac ? `Zodiac: ${zodiac}` : ""}
-                    disabled
-                    readOnly
-                  />
-                </div>
-                <button className={mainBtn + " mt-6"} type="submit">
-                  Next
-                </button>
-              </>
-            )}
-
-            {/* STEP 2: Gender */}
-            {step === 2 && (
-              <>
-                <h2 className="text-3xl font-bold mb-6 text-[#E63946] w-full text-left">
-                  Your Gender
-                </h2>
-                <div className="flex gap-2 w-full my-6">
-                  {GENDERS.map((g) => (
-                    <button
-                      type="button"
-                      key={g}
-                      className={`flex-1 py-3 rounded-full border text-base ${
-                        gender === g
-                          ? "bg-gradient-to-r from-[#FF3366] to-[#E63946] text-white font-bold"
-                          : "bg-gray-200 text-[#22223B] border-gray-300"
-                      }`}
-                      onClick={() => setGender(g)}
-                    >
-                      {g}
-                    </button>
-                  ))}
-                </div>
-                <button disabled={!gender} className={mainBtn} type="submit">
-                  Next
-                </button>
-              </>
-            )}
-
-            {/* STEP 3: Interests */}
-            {step === 3 && (
-              <>
-                <h2 className="text-3xl font-bold mb-4 text-[#E63946] w-full text-left">
-                  Your Interests
-                </h2>
-                <div className="flex flex-wrap gap-2 w-full my-6 tracking-wide">
-                  {INTERESTS.map((item) => (
-                    <span
-                      key={item}
-                      className={
-                        interests.includes(item)
-                          ? chip + " bg-[#EA4156] text-white"
-                          : chip +
-                            "text-gray-700 border border-gray-300 bg-white "
-                      }
-                      onClick={() => handleInterestToggle(item)}
-                    >
-                      {item}
-                    </span>
-                  ))}
-                </div>
-                <button className={mainBtn} type="submit">
-                  Next
-                </button>
-              </>
-            )}
-
-            {/* STEP 4: Looking For */}
-            {step === 4 && (
-              <>
-                <h2 className="text-3xl font-bold mb-4 text-[#E63946] w-full text-left">
-                  Looking For
-                </h2>
-                <div className="flex gap-2 w-full my-6">
-                  {LOOKING_FOR.map((g) => (
-                    <button
-                      type="button"
-                      key={g}
-                      className={`flex-1 py-3 rounded-full border text-base ${
-                        lookingFor === g
-                          ? "bg-gradient-to-r from-[#FF3366] to-[#E63946] text-white font-bold"
-                          : "bg-gray-200 text-[#22223B] border-gray-300"
-                      }`}
-                      onClick={() => setLookingFor(g)}
-                    >
-                      {g}
-                    </button>
-                  ))}
-                </div>
-                <button
-                  disabled={!lookingFor}
-                  className={mainBtn}
-                  type="submit"
-                >
-                  Next
-                </button>
-              </>
-            )}
-
-            {/* STEP 5: Gallery */}
-            {step === 5 && (
-              <>
-                <h2 className="text-3xl font-bold mb-4 text-[#E63946] w-full text-left">
-                  Gallery Photos
-                </h2>
-                <div className="grid grid-cols-3 gap-2 my-6 w-full">
-                  {[0, 1, 2, 3, 4].map((idx) => (
-                    <label
-                      key={idx}
-                      className="w-20 h-20 rounded-2xl bg-[#FFE6EF] flex items-center justify-center cursor-pointer overflow-hidden border-2 border-dashed border-[#EA4156]"
-                    >
-                      {photoPreviews[idx] ? (
-                        <img
-                          src={photoPreviews[idx]}
-                          className="object-cover w-full h-full"
-                          alt={`p${idx}`}
-                        />
-                      ) : (
-                        <FiCamera className="text-[#EA4156] text-2xl" />
-                      )}
-                      <input
-                        type="file"
-                        accept="image/*"
-                        className="hidden"
-                        onChange={(e) => handleGalleryChange(idx, e)}
-                      />
-                    </label>
-                  ))}
-                </div>
-                <button className={mainBtn + " mt-4"} type="submit">
-                  Next
-                </button>
-              </>
-            )}
-
-            {/* STEP 6: Bio & Location */}
-            {step === 6 && (
-              <>
-                <h2 className="text-3xl font-bold mb-4 text-[#E63946] w-full text-left">
-                  Bio & Location
-                </h2>
-                <textarea
-                  placeholder="Short Bio"
-                  className="rounded-2xl px-4 py-3 border w-full resize-none my-6 bg-gray-200 placeholder-gray-500 "
-                  rows={2}
-                  value={bio}
-                  onChange={(e) => setBio(e.target.value)}
-                  required
-                />
+                ) : (
+                  <FiCamera className="text-[#EA4156] text-2xl" />
+                )}
                 <input
-                  type="text"
-                  placeholder="Location"
-                  className={input}
-                  value={locationField}
-                  onChange={(e) => setLocationField(e.target.value)}
-                  required
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  onChange={(e) => handleGalleryChange(idx, e)}
                 />
-                <button className={mainBtn} type="submit">
-                  Next
-                </button>
-              </>
-            )}
-
-            {/* STEP 7: Save/Review */}
-            {step === 7 && (
-              <>
-                <h2 className="text-3xl font-bold mb-4 text-[#E63946] w-full text-left">
-                  Review & Save
-                </h2>
-                <div className="w-full flex flex-col gap-2 my-2">
-                  <div className="flex gap-3 items-center">
-                    <img
-                      src={mainPhoto}
-                      alt="main"
-                      className="w-12 h-12 rounded-full"
-                    />
-                    <span className="text-lg font-bold">
-                      {firstName} {lastName} ({age}, {zodiac})
-                    </span>
-                  </div>
-                  <div>
-                    <span className="font-bold text-sm">Gender:</span> {gender}
-                  </div>
-                  <div>
-                    <span className="font-bold text-sm">Interests:</span>{" "}
-                    {interests.join(", ")}
-                  </div>
-                  <div>
-                    <span className="font-bold text-sm">Looking for:</span>{" "}
-                    {lookingFor}
-                  </div>
-                  <div>
-                    <span className="font-bold text-sm">Bio:</span> {bio}
-                  </div>
-                  <div>
-                    <span className="font-bold text-sm">Location:</span>{" "}
-                    {locationField}
-                  </div>
-                  <div>
-                    <span className="font-bold text-sm">Email:</span> {email}
-                  </div>
-                  <div className="flex flex-wrap gap-2 my-2">
-                    {photoPreviews.filter(Boolean).map((url, idx) => (
-                      <img
-                        key={idx}
-                        src={url}
-                        alt="gallery"
-                        className="w-12 h-12 rounded-xl object-cover border border-pink-300"
-                      />
-                    ))}
-                  </div>
-                </div>
+              </label>
+            ))}
+          </div>
+          {/* Names */}
+          <div className="flex gap-2 w-full">
+            <input
+              className="w-1/2 rounded-xl border border-[#eee] px-5 py-4 text-base bg-gray-200 placeholder-gray-500 focus:outline-none mb-0"
+              placeholder="First Name"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+              required
+            />
+            <input
+              className="w-1/2 rounded-xl border border-[#eee] px-5 py-4 text-base bg-gray-200 placeholder-gray-500 focus:outline-none mb-0"
+              placeholder="Last Name"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+              required
+            />
+          </div>
+          {/* Birthday */}
+          <input
+            type="date"
+            className="w-full rounded-xl border border-[#eee] px-5 py-4 text-base bg-[#FFE6EF] placeholder-gray-500 focus:outline-none text-[#EA4156] uppercase"
+            value={dob}
+            onChange={(e) => setDob(e.target.value)}
+            required
+          />
+          {/* Age & Zodiac */}
+          <div className="flex w-full gap-2">
+            <input
+              className="w-1/2 rounded-xl border border-[#eee] px-5 py-4 text-base bg-gray-100 placeholder-gray-500 focus:outline-none mb-0"
+              value={age ? `Age: ${age}` : ""}
+              disabled
+              readOnly
+            />
+            <input
+              className="w-1/2 rounded-xl border border-[#eee] px-5 py-4 text-base bg-gray-100 placeholder-gray-500 focus:outline-none mb-0"
+              value={zodiac ? `Zodiac: ${zodiac}` : ""}
+              disabled
+              readOnly
+            />
+          </div>
+          {/* Gender */}
+          <div>
+            <div className="font-semibold text-base text-[#181930] mb-2">
+              Gender
+            </div>
+            <div className="flex gap-2 w-full">
+              {GENDERS.map((g) => (
                 <button
-                  className={mainBtn + " mt-6"}
-                  type="submit"
-                  style={{ zIndex: 999, position: "relative" }}
+                  type="button"
+                  key={g}
+                  className={`flex-1 py-2 rounded-xl border text-base ${
+                    gender === g
+                      ? "bg-gradient-to-r from-[#FF3366] to-[#E63946] text-white font-bold"
+                      : "bg-gray-200 text-[#22223B] border-gray-300"
+                  }`}
+                  onClick={() => setGender(g)}
                 >
-                  Save Changes
+                  {g}
                 </button>
-              </>
-            )}
-          </form>
-        </main>
+              ))}
+            </div>
+          </div>
+          {/* Relationship Goal */}
+          <div
+            className="bg-white rounded-xl border border-gray-200 mb-1 px-4 py-3 cursor-pointer hover:bg-gray-50 transition"
+            onClick={() => setShowGoalPicker(true)}
+          >
+            <div className="font-semibold text-base text-[#181930] mb-1 flex justify-between items-center">
+              <span>Relationship goal</span>
+              <svg
+                width={20}
+                height={20}
+                fill="none"
+                stroke="#9696a0"
+                strokeWidth={2}
+                viewBox="0 0 24 24"
+              >
+                <path d="M9 6l6 6-6 6" />
+              </svg>
+            </div>
+            <div className="text-[#9696a0] text-base">{relationshipGoal}</div>
+          </div>
+          {/* Sexual Orientation */}
+          <div
+            className="bg-white rounded-xl border border-gray-200 mb-1 px-4 py-3 cursor-pointer hover:bg-gray-50 transition"
+            onClick={() => setShowOrientationPicker(true)}
+          >
+            <div className="font-semibold text-base text-[#181930] mb-1 flex justify-between items-center">
+              <span>Sexual Orientation</span>
+              <svg
+                width={20}
+                height={20}
+                fill="none"
+                stroke="#9696a0"
+                strokeWidth={2}
+                viewBox="0 0 24 24"
+              >
+                <path d="M9 6l6 6-6 6" />
+              </svg>
+            </div>
+            <div className="text-[#9696a0] text-base">{sexualOrientation}</div>
+          </div>
+          {/* Interests */}
+          <div className="bg-white rounded-xl border border-gray-200 px-4 py-3 mb-1">
+            <div className="font-semibold text-base text-[#181930] mb-1">
+              Interests
+            </div>
+
+            <div className="flex flex-wrap gap-2 text-[#9696a0] text-sm">
+              {[
+                ...INTERESTS,
+                ...interests.filter((i) => !INTERESTS.includes(i)),
+              ].map((item) => (
+                <span
+                  key={item}
+                  className={
+                    interests.includes(item)
+                      ? "bg-[#FFE6EF] text-[#EA4156] px-3 py-1 rounded-xl cursor-pointer"
+                      : "bg-gray-200 text-[#22223B] px-3 py-1 rounded-xl cursor-pointer"
+                  }
+                  onClick={() => handleInterestToggle(item)}
+                >
+                  {item}
+                </span>
+              ))}
+            </div>
+          </div>
+          {/* Looking For */}
+          <div>
+            <div className="font-semibold text-base text-[#181930] mb-2">
+              Looking For
+            </div>
+            <div className="flex gap-2 w-full">
+              {LOOKING_FOR.map((g) => (
+                <button
+                  type="button"
+                  key={g}
+                  className={`flex-1 py-2 rounded-xl border text-base ${
+                    lookingFor === g
+                      ? "bg-gradient-to-r from-[#FF3366] to-[#E63946] text-white font-bold"
+                      : "bg-gray-200 text-[#22223B] border-gray-300"
+                  }`}
+                  onClick={() => setLookingFor(g)}
+                >
+                  {g}
+                </button>
+              ))}
+            </div>
+          </div>
+          {/* Bio */}
+          <textarea
+            placeholder="Short Bio"
+            className="rounded-xl px-4 py-3 border w-full resize-none bg-gray-200 placeholder-gray-500 my-2"
+            rows={2}
+            value={bio}
+            onChange={(e) => setBio(e.target.value)}
+            required
+          />
+          {/* Location */}
+          <input
+            type="text"
+            placeholder="Location"
+            className="w-full rounded-xl border border-[#eee] px-5 py-4 text-base bg-gray-200 placeholder-gray-500 focus:outline-none mb-2"
+            value={locationField}
+            onChange={(e) => setLocationField(e.target.value)}
+            required
+          />
+          {/* Email - display only */}
+          <input
+            type="email"
+            placeholder="Email"
+            className="w-full rounded-xl border border-[#eee] px-5 py-4 text-base bg-gray-200 placeholder-gray-500 focus:outline-none mb-2"
+            value={email}
+            disabled
+          />
+          {/* Save */}
+          <button
+            className="bg-[#EA4156] text-white font-bold w-full rounded-2xl py-4 text-base mt-2 mb-6 shadow-md hover:brightness-105 transition"
+            type="submit"
+          >
+            Save Changes
+          </button>
+        </div>
+
+        {/* Relationship Goal Picker */}
+        {showGoalPicker && (
+          <BottomSheetModal
+            title="Relationship goal"
+            options={RELATIONSHIP_GOALS}
+            selected={relationshipGoal}
+            onSelect={(opt) => {
+              setRelationshipGoal(opt);
+              setShowGoalPicker(false);
+            }}
+            onCancel={() => setShowGoalPicker(false)}
+          />
+        )}
+        {/* Sexual Orientation Picker */}
+        {showOrientationPicker && (
+          <BottomSheetModal
+            title="Sexual Orientation"
+            options={SEXUAL_ORIENTATION}
+            selected={sexualOrientation}
+            onSelect={(opt) => {
+              setSexualOrientation(opt);
+              setShowOrientationPicker(false);
+            }}
+            onCancel={() => setShowOrientationPicker(false)}
+          />
+        )}
+        {/* Modal animation style */}
+        <style>{`
+          .animate-fade-in-up {
+            animation: fadeInUp 0.18s cubic-bezier(.44,1.45,.47,1);
+          }
+          @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(60px);}
+            to { opacity: 1; transform: none;}
+          }
+        `}</style>
+      </div>
+    </div>
+  );
+}
+
+// BottomSheetModal: Card-sized, centered, mobile-style picker
+function BottomSheetModal({ title, options, selected, onSelect, onCancel }) {
+  return (
+    <div className="fixed inset-0 z-30 bg-black/50 flex items-end justify-center">
+      <div
+        className="w-full max-w-xs mx-auto mb-8 rounded-3xl bg-white pb-2 px-0 shadow-2xl animate-fade-in-up"
+        style={{
+          minWidth: 320,
+          borderRadius: 28,
+        }}
+      >
+        <div className="px-6 pt-5 pb-2 font-extrabold text-lg text-[#181930]">
+          {title}
+        </div>
+        <div className="px-3">
+          {options.map((opt) => (
+            <button
+              key={opt}
+              className={`w-full text-left px-4 py-3 mb-2 rounded-xl text-base transition
+                ${
+                  selected === opt
+                    ? "bg-[#f6dde1] text-[#E63946] font-bold"
+                    : "bg-[#f5f6f7] text-[#181930] font-semibold"
+                }
+              `}
+              style={{ letterSpacing: 0.1, fontSize: 17 }}
+              onClick={() => onSelect(opt)}
+            >
+              {opt}
+            </button>
+          ))}
+        </div>
+        <button
+          className="block w-full mt-2 py-3 text-center text-[#b1b1bc] font-bold text-base rounded-xl"
+          style={{ letterSpacing: 0.4, fontSize: 16 }}
+          onClick={onCancel}
+        >
+          Cancel
+        </button>
       </div>
     </div>
   );

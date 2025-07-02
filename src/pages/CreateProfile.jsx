@@ -191,7 +191,7 @@ export default function CreateProfile() {
           />
           <input
             type="date"
-            className={input + " cursor-pointer"}
+            className={input + " cursor-pointer bg-red-100 text-[#EA4156] uppercase"}
             value={birthday}
             onChange={(e) => setBirthday(e.target.value)}
             required

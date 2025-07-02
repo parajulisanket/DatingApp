@@ -144,6 +144,10 @@ export default function Feed() {
   const isAnimating = useRef(false);
 
   const nextCard = () => setCardIndex((i) => Math.min(i + 1, profiles.length));
+  const navigate = useNavigate();
+  const topProfile = profiles[cardIndex];
+
+  //  added Y swipe for profile details
   const handleDragEnd = (_, info) => {
     if (isAnimating.current) return;
     if (info.offset.x > 100) {
@@ -166,8 +170,13 @@ export default function Feed() {
         setSwipeIcon(null);
         isAnimating.current = false;
       }, 380);
+    } else if (info.offset.y < -80) {
+      if (topProfile) {
+        navigate(`/profile/${topProfile.id}`);
+      }
     }
   };
+
   const handleButton = (dir) => {
     if (isAnimating.current) return;
     setSwipeIcon(dir);
@@ -180,9 +189,6 @@ export default function Feed() {
       isAnimating.current = false;
     }, 380);
   };
-
-  const navigate = useNavigate();
-  const topProfile = profiles[cardIndex];
 
   return (
     <div className="w-full min-h-screen flex flex-col items-center justify-between px-0 pt-10 pb-20">

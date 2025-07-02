@@ -70,7 +70,7 @@ export default function Profile() {
     const reader = new FileReader();
     reader.onloadend = () => {
       setMainPhoto(reader.result);
-      // Save to profile in localStorage for persistence
+      // Save to profile in localStorage
       const profile = getProfile();
       profile.photos = [reader.result, ...(profile.photos?.slice(1) || [])];
       localStorage.setItem("profile", JSON.stringify(profile));
@@ -111,7 +111,7 @@ export default function Profile() {
 
       <div className="w-full flex flex-col items-center px-5 py-24 ">
         {/* Profile main photo with camera icon */}
-        <div className="relative mb-3 flex items-center justify-center">
+        <div className="relative mt-6 flex items-center justify-center">
           <img
             src={mainPhoto}
             alt="profile"
@@ -134,6 +134,14 @@ export default function Profile() {
               onChange={handlePhotoChange}
             />
           </button>
+          {/* Edit Icon */}
+          <button
+            className="absolute right-[-70px] top-20 -translate-y-1/2 bg-pink-100 w-10 h-10 flex items-center justify-center rounded-full shadow text-[#EA4156]"
+            onClick={() => (window.location.href = "/editprofile")}
+            title="Edit Profile"
+          >
+            <FiEdit2 size={26} />
+          </button>
         </div>
         {/* Name, age */}
         <div className="relative flex flex-col items-center mb-1">
@@ -147,14 +155,6 @@ export default function Profile() {
               {user.location}
             </div>
           </div>
-          {/* Edit Icon */}
-          <button
-            className="absolute right-[-60px] top-1/2 -translate-y-1/2 bg-pink-100 w-12 h-12 flex items-center justify-center rounded-full shadow text-pink-400"
-            onClick={() => (window.location.href = "/editprofile")}
-            title="Edit Profile"
-          >
-            <FiEdit2 size={26} />
-          </button> 
         </div>
 
         {/* <div className="w-full h-5 max-w-auto flex items-center ">
@@ -257,7 +257,7 @@ export default function Profile() {
             </div>
           </div>
           {/* Dots */}
-          <div className="flex gap-2  justify-center"> 
+          <div className="flex gap-2  justify-center">
             {platinumOffers.map((_, idx) => (
               <button
                 key={idx}

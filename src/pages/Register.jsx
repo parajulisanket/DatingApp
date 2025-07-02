@@ -13,7 +13,7 @@ export default function Register() {
   function handleSendOtp(e) {
     e.preventDefault();
     setError("");
-    if (!number || number.length < 6) {
+    if (!number || number.length < 13) {
       setError("Please enter a valid phone number!");
       return;
     }
@@ -31,7 +31,6 @@ export default function Register() {
   }
 
   return (
-    // THIS IS THE KEY:
     <div className="flex-1 flex flex-col items-center justify-center px-4 bg-white font-[Inter] my-36">
       <h2 className="text-3xl font-medium text-center mb-8 text-[#EA4156] tracking-wide mt-2">
         Create your account
