@@ -22,11 +22,7 @@ const INTERESTS = [
 ];
 const GENDERS = ["M", "F", "Other"];
 const LOOKING_FOR = ["M", "F", "Other"];
-const RELATIONSHIP_GOALS = [
-  "Long-term partner",
-  "Dating only",
-  "Looking for marriage",
-];
+const RELATIONSHIP_GOALS = ["Friendship", "Dating only", "Marriage"];
 const SEXUAL_ORIENTATION = [
   "Straight",
   "Gay",
