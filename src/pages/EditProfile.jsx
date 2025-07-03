@@ -79,7 +79,7 @@ export default function EditProfile() {
   );
   const [showOrientationPicker, setShowOrientationPicker] = useState(false);
 
-  // Birthday, Age, Zodiac
+  // Birthdate, Age, Zodiac
   useEffect(() => {
     if (dob) {
       const birthDate = new Date(dob);
@@ -179,7 +179,7 @@ export default function EditProfile() {
   // Render
   return (
     <div className="min-h-screen bg-[#f7f7fa] flex justify-center items-center">
-      <div className="relative w-full max-w-md bg-white rounded-3xl mx-auto flex flex-col shadow-xl min-h-screen overflow-y-auto py-2">
+      <div className="relative w-full  bg-white rounded-3xl mx-auto flex flex-col shadow-xl min-h-screen overflow-y-auto py-2">
         {/* Header */}
         <div className="sticky top-0 z-10 bg-white rounded-t-3xl  flex items-center px-4 py-4">
           <button
@@ -188,7 +188,7 @@ export default function EditProfile() {
           >
             <FiArrowLeft size={26} />
           </button>
-          <span className="text-xl font-bold  text-gray-600">Edit Profile</span>
+          <span className="text-xl font-bold  text-black">Edit Profile</span>
         </div>
         <div
           className="flex flex-col gap-3 px-5 py-2"
@@ -395,7 +395,7 @@ export default function EditProfile() {
           {/* Bio */}
           <textarea
             placeholder="Short Bio"
-            className="rounded-xl px-4 py-3 border w-full resize-none bg-gray-200 placeholder-gray-500 my-2"
+            className="rounded-xl px-4 py-4 border w-full resize-none bg-gray-200 placeholder-gray-500 my-2"
             rows={2}
             value={bio}
             onChange={(e) => setBio(e.target.value)}
@@ -419,12 +419,18 @@ export default function EditProfile() {
             disabled
           />
           {/* Save */}
-          <button
-            className="bg-[#EA4156] text-white font-bold w-full rounded-2xl py-4 text-base mt-2 mb-6 shadow-md hover:brightness-105 transition"
-            type="submit"
+          <form
+            className="flex flex-col gap-3 px-5 py-2"
+            onSubmit={handleSave}
+            autoComplete="off"
           >
-            Save Changes
-          </button>
+            <button
+              className="bg-[#EA4156] text-white font-bold w-full rounded-2xl py-4 text-base mt-2 mb-6 shadow-md hover:brightness-105 transition"
+              type="submit"
+            >
+              Save Changes
+            </button>
+          </form>
         </div>
 
         {/* Relationship Goal Picker */}
@@ -489,8 +495,8 @@ function BottomSheetModal({ title, options, selected, onSelect, onCancel }) {
               className={`w-full text-left px-4 py-3 mb-2 rounded-xl text-base transition
                 ${
                   selected === opt
-                    ? "bg-[#f6dde1] text-[#E63946] font-bold"
-                    : "bg-[#f5f6f7] text-[#181930] font-semibold"
+                    ? "bg-[#f6dde1] text-[#E63946] font-medium"
+                    : "bg-[#f5f6f7] text-[#181930] font-normal"
                 }
               `}
               style={{ letterSpacing: 0.1, fontSize: 17 }}

@@ -16,7 +16,8 @@ import profile3 from "../assets/profile3.jpeg";
 import profile4 from "../assets/profile4.jpeg";
 import profile5 from "../assets/profile5.jpeg";
 import BottomNav from "../components/BottomNav/BottomNav";
-import SettingsDropdown from "../components/Common/SettingsDropdown";
+// import SettingsDropdown from "../components/Common/SettingsDropdown";
+import Filter from "../components/Common/Filter";
 
 // Profiles array should match the ProfileDetail data!
 export const profiles = [
@@ -107,7 +108,7 @@ function TinderCard({
       />
       {/* Distance badge */}
       <div className="absolute top-4 left-4 z-20">
-        <span className="flex items-center gap-1 bg-black/60 text-white text-xs font-medium px-3 py-1 rounded-lg">
+        <span className="flex items-center gap-1 bg-black/40 text-white text-xs font-medium p-1 rounded-lg">
           <HiOutlineLocationMarker className="w-4 h-4" />
           {profile.distance}
         </span>
@@ -193,22 +194,24 @@ export default function Feed() {
   return (
     <div className="w-full min-h-screen flex flex-col items-center justify-between px-0 pt-10 pb-20">
       {/* HEADER */}
-      <div className="w-full max-w-[420px] flex items-center justify-between px-4 pt-2 pb-2 mx-auto">
+      <div className="max-w-[420px] flex items-center w-full px-6 pb-3 mx-auto">
         {/* Back Arrow */}
-        <button
-          className=" w-11 h-11 flex items-center justify-center text-[#FF3366]  text-3xl bg-white"
+        <button 
+          className="w-11 h-11 flex items-center justify-center text-[#FF3366] text-3xl bg-white"
           onClick={() => navigate(-1)}
           aria-label="Go Back"
         >
           <FiArrowLeft />
         </button>
-        <div className="flex flex-col items-center gap-0.5">
-          <div className="text-gray-700 font-bold text-3xl leading-none">
+
+        {/* Title center always */}
+        <div className="flex-1 flex flex-col items-center">
+          <div className="text-black font-black text-3xl leading-none text-center">
             Discover
           </div>
-          <span className="text-gray-400 text-xs -mt-1">nepal</span>
+          <span className="text-gray-400 text-xs -mt-1 text-center">nepal</span>
         </div>
-        <SettingsDropdown />
+        <Filter />
       </div>
 
       {/* card swipe area */}

@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import SettingsDropdown from "./Common/SettingsDropdown";
+// import SettingsDropdown from "./Common/SettingsDropdown";
 import { FiSearch, FiArrowLeft } from "react-icons/fi";
 import BottomNav from "./BottomNav/BottomNav";
 import { useNavigate } from "react-router-dom";
+import Filter from "./Common/Filter";
 
 export default function UserList({ users, selectedUserId, onSelect }) {
   const [search, setSearch] = useState("");
@@ -32,11 +33,11 @@ export default function UserList({ users, selectedUserId, onSelect }) {
             <FiArrowLeft />
           </button>
           {/* Centered Title */}
-          <div className="flex-1 text-3xl text-gray-700 font-bold tracking-tight text-center">
+          <div className="flex-1 text-3xl text-black font-bold tracking-wide text-center">
             Messages
           </div>
-          {/* Settings */}
-          <SettingsDropdown />
+          {/* Filter */}
+          <Filter />
         </div>
 
         {/* Search box */}
@@ -47,7 +48,7 @@ export default function UserList({ users, selectedUserId, onSelect }) {
             </span>
             <input
               type="text"
-              className="w-full rounded-xl pl-10 pr-4 py-2 border border-gray-100 focus:ring-2 focus:ring-pink-200 bg-gray-50"
+              className="w-full rounded-xl pl-10 pr-4 py-2 border border-gray-200 focus:ring-2 focus:ring-pink-200 bg-gray-50"
               placeholder="Search"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
@@ -74,11 +75,11 @@ export default function UserList({ users, selectedUserId, onSelect }) {
         </div>
 
         {/* Messages */}
-        <div className="flex-1 overflow-y-auto pb-6">
+        <div className="flex-1 overflow-y-auto">
           <div className="text-lg font-semibold text-gray-700 px-6 mb-2">
             Messages
           </div>
-          <div className="flex flex-col">
+          <div className="flex flex-col overflow-y-auto max-h-[420px]">
             {filtered.map((u) => (
               <button
                 key={u.id}

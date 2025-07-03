@@ -6,9 +6,10 @@ import profile2 from "../assets/profile2.jpeg";
 import profile3 from "../assets/profile3.jpeg";
 import profile4 from "../assets/profile4.jpeg";
 import profile5 from "../assets/profile5.jpeg";
-import SettingsDropdown from "../components/Common/SettingsDropdown";
+// import SettingsDropdown from "../components/Common/SettingsDropdown";
 import { useNavigate } from "react-router-dom";
 import { FiArrowLeft } from "react-icons/fi";
+import Filter from "../components/Common/Filter";
 
 const todayMatches = [
   { id: 1, name: "Leilani", age: 19, photo: kylie },
@@ -35,17 +36,17 @@ export default function Matches() {
         >
           <FiArrowLeft />
         </button>
-        <h1 className="flex-1 text-3xl font-bold text-gray-700 text-center">
+        <h1 className="flex-1 text-3xl font-bold text-black text-center tracking-wide">
           Matches
         </h1>
-        <SettingsDropdown />
+        <Filter />
       </div>
 
       <p className="text-gray-500 text-base mt-2 m-6">
         This is a list of people who have liked you and your matches.
       </p>
 
-      <div className="flex-1 w-full overflow-y-auto pb-24 example">
+      <div className="flex-1 w-full overflow-y-auto pb-4 example max-h-[580px]">
         {/* today match card*/}
         <div className="w-full px-5 mb-6">
           <div className="flex items-center gap-2 mb-3">
@@ -53,7 +54,7 @@ export default function Matches() {
             <span className="text-gray-400 text-sm font-semibold">Today</span>
             <div className="flex-1 h-px bg-gray-200" />
           </div>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-4 ">
             {todayMatches.map((m) => (
               <div
                 key={m.id}

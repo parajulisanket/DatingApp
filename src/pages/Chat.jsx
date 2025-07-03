@@ -1,7 +1,8 @@
 import React, { useState, useRef } from "react";
 import {
+  FaPhone,
+  FaVideo,
   FaChevronLeft,
-  FaEllipsisV,
   FaPaperPlane,
   FaMicrophone,
 } from "react-icons/fa";
@@ -32,7 +33,7 @@ export default function Chat({ user, onSendMessage, onBack }) {
       >
         {/* Back arrow */}
         <button
-          className="text-gray-500 hover:bg-gray-100 rounded-full p-2 absolute left-4 top-1/2 -translate-y-1/2 transition"
+          className="text-[#FF3366] hover:bg-gray-100 rounded-full p-2 absolute left-4 top-1/2 -translate-y-1/2 transition"
           onClick={onBack}
           aria-label="Back"
         >
@@ -57,13 +58,15 @@ export default function Chat({ user, onSendMessage, onBack }) {
             </div>
           </div>
         </div>
-        {/* Three-dot menu */}
-        <button
-          className="text-gray-500 hover:bg-gray-100 rounded-full p-2 absolute right-4 top-1/2 -translate-y-1/2 transition"
-          aria-label="Options"
-        >
-          <FaEllipsisV size={20} />
-        </button>
+        {/* audio and video */}
+        <div className="flex gap-3 cursor-pointer ">
+          <div className="bg-pink-100 hover:bg-pink-200 p-2 rounded-xl text-[#FF3366] shadow-md">
+            <FaPhone className="rotate-90" />{" "}
+          </div>
+          <div className="bg-pink-100 hover:bg-pink-200 p-2 rounded-xl text-[#FF3366] shadow-md">
+            <FaVideo />
+          </div>
+        </div>
       </div>
       {/* Divider */}
       <div className="border-t border-gray-100" />
@@ -109,7 +112,7 @@ export default function Chat({ user, onSendMessage, onBack }) {
       <form
         onSubmit={sendMessage}
         className={`
-          w-full p-5 flex items-center gap-2 bg-white border-t border-gray-100
+          w-full p-5 flex items-center gap-2 bg-white border-t border-gray-200
           fixed bottom-0 left-0 right-0 z-10
           md:absolute md:bottom-0 md:left-0 md:right-0
         `}

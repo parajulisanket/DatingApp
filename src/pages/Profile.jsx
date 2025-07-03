@@ -91,6 +91,9 @@ export default function Profile() {
 
   const navigate = useNavigate();
 
+  const [showBanner, setShowBanner] = useState(false);
+  const [bannerContent, setBannerContent] = useState({});
+
   return (
     <div className="w-full min-h-screen flex flex-col items-center relative bg-white">
       {/* Header */}
@@ -103,7 +106,7 @@ export default function Profile() {
         >
           <FiArrowLeft />
         </button>
-        <span className="text-3xl font-bold text-gray-600 tracking-wide">
+        <span className="text-3xl font-bold text-black tracking-wide">
           Profile
         </span>
         <SettingsDropdown />
@@ -249,7 +252,13 @@ export default function Profile() {
                   <div className="text-gray-400 text-center text-sm mb-4">
                     {offer.desc}
                   </div>
-                  <button className="bg-white  font-semibold text-[#FF3366] py-3 px-8 rounded-full shadow-xl text-lg">
+                  <button
+                    className="bg-white  font-semibold text-[#FF3366] py-3 px-8 rounded-full shadow-xl text-lg"
+                    onClick={() => {
+                      setBannerContent(offer);
+                      setShowBanner(true);
+                    }}
+                  >
                     {offer.button}
                   </button>
                 </div>
@@ -270,15 +279,32 @@ export default function Profile() {
             ))}
           </div>
         </div>
-
-        {/* Edit Button */}
-        {/* <button
-          onClick={() => (window.location.href = "/editprofile")}
-          className="mt-10 bg-pink-200 text-white font-extrabold rounded-full p-3  shadow hover:bg-pink-300 transition"
-        >
-          <FiEdit2 />
-        </button> */}
       </div>
+      {showBanner && (
+        <div className="fixed inset-0 bg-black/40 z-50 flex items-center justify-center">
+          <div className="bg-white rounded-2xl p-8 max-w-[90vw] w-[340px] shadow-2xl flex flex-col items-center relative">
+            <button
+              onClick={() => setShowBanner(false)}
+              className="absolute top-2 right-4 text-gray-800 hover:text-gray-900 text-2xl"
+              aria-label="Close"
+            >
+              &times;
+            </button>
+            <div className="text-xl font-bold mb-3 text-[#FF3366]">
+              {bannerContent.title}
+            </div>
+            <div className="text-gray-600 text-center mb-4">
+              {bannerContent.desc}
+            </div>
+            <button
+              className="bg-[#FF3366] text-white px-6 py-2 rounded-full font-semibold shadow"
+              onClick={() => setShowBanner(false)}
+            >
+              Subscribe
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
